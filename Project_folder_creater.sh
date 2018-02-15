@@ -1,6 +1,10 @@
 cd
 
-cd Documents/Bioinfo-Protein-Project/Bioinfo-Protein-Project
+cd Documents
+
+mkdir Project_Name_Template
+
+cd Project_Name_Template
 
 mkdir Projects
 
