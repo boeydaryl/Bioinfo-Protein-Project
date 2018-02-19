@@ -1,0 +1,7 @@
+Diary week 1
+
+2018 19 Feb
+
+Personal assigned project is to predict if, given an amino acid sequence, if the state is buried or exposed. The dataset assigned was "buried-exposed", and it's a 3 line file (header/title, AA sequence, and assigned states).
+
+The overall motive of the project is to write a program that, given an amino acid sequence, can predict the states like in the assigned dataset file. The dataset is to be used to train the program to do this.
