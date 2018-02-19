@@ -1,5 +1,0 @@
-Diary Week 0
-
-Learnt software carpentry, which is using a bash script to quickly set up a template project folder structure. This greatly reduces the amount of mundane task of creating a new folder structure for every new project.
-
-Also learn Git version control, as well as set up a repository on GitHub. By cloning the repository to a local directory and pushing commits to GitHub, it creates a remote backup of all versions for the files that are used in the project. Using git checkout allows reversion to previous versions of the file, facilitating back steps if necessarry.
