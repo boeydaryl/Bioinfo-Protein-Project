@@ -5,3 +5,29 @@ Diary week 1
 Personal assigned project is to predict if, given an amino acid sequence, if the state is buried or exposed. The dataset assigned was "buried-exposed", and it's a 3 line file (header/title, AA sequence, and assigned states).
 
 The overall motive of the project is to write a program that, given an amino acid sequence, can predict the states like in the assigned dataset file. The dataset is to be used to train the program to do this.
+
+Wrote a simple 3 line parser to format the dataset; first into a dictionary, followed by a pandas dataframe to allow for faster retrieval of data.
+
+
+2918 20 Feb
+
+Attended project introduction session, more about the project requirements was mentioned.
+Basic requirements:
+Extract the feature from your dataset
+Create cross-validated sets
+Train a SVM using single sequence information, using sklearn
+Check different window sizes for the inputs
+Analyze the results and compare it to previous work
+Review the state of art for your predictor
+Write a report
+
+Additional requirements:
+Add evolutionary information by running psi-blast and extracting the information
+Train a SVM using multiple sequence information
+Optimize the performance of the SVM
+Use random forests and a simple decision tree and compare the performance with the SVM performance.
+Extract the data from 50 other proteins and test the performance.
+
+As such, the plan for week 1 is to establish a solid project framework/guideline, as well as read up on a minimum of 5 relevant publications related to the prediction of buried/exposed states, as well as to make a couple of tries at prediction model using Scikit-learn.
+
+

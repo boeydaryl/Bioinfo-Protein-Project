@@ -13,9 +13,11 @@ def threelineparser(filename):
         elif x.islower() and ">" not in x:
             B = x.replace("\n", "")
             datadict[key] = [A, B]
-    print(datadict)
+    #print(datadict)
     df = pd.DataFrame.from_dict(data=datadict, orient='index')
+    #df.rename(columns={'0': 'AA', '1': 'state'})
     print(df)
+    #df.to_csv('textoutput.csv')
 
 
 
