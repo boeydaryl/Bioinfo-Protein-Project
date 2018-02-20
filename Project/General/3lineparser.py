@@ -23,4 +23,4 @@ def threelineparser(filename):
 
 
 if __name__ == "__main__":
-    threelineparser('/Users/daryl/Documents/Bioinfo-Protein-Project/Project/Datasets/testfile.txt')
+    threelineparser('/Users/daryl/Documents/Bioinfo-Protein-Project/Project/Datasets/buried-exposed.3line.txt')

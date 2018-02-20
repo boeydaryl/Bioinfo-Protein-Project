@@ -30,4 +30,6 @@ Extract the data from 50 other proteins and test the performance.
 
 As such, the plan for week 1 is to establish a solid project framework/guideline, as well as read up on a minimum of 5 relevant publications related to the prediction of buried/exposed states, as well as to make a couple of tries at prediction model using Scikit-learn.
 
+Interesting additional reading to get more specifics about Machine-Learning (https://machinelearningmastery.com/machine-learning-tribe/).
+
 
