@@ -51,9 +51,14 @@ To continue work on the one page project summary, and searching for more relevan
 
 Publications:
 
+Yu, DJ., Hu, J., Wu, XW. et al. Amino Acids (2013) 44: 1365. https://doi.org/10.1007/s00726-013-1472-6.
 Biochimie. 2010 Oct;92(10):1330-4. doi: 10.1016/j.biochi.2010.06.013. Epub 2010 Jun 23.
 Amino Acids. 2008 Oct;35(3):581-90. doi: 10.1007/s00726-008-0084-z. Epub 2008 Apr 22.
 Bioinformatics. 2007 Oct 1;23(19):2507-17. Epub 2007 Aug 24.
 Bioinformatics. 2010 Feb 1;26(3):440-3. doi: 10.1093/bioinformatics/btp621. Epub 2009 Oct 29.
 
 With respect to the encoding of the AAs and states, this is an excellent resource (https://machinelearningmastery.com/how-to-one-hot-encode-sequence-data-in-python/). Summary: to use LabelEncoder to first create integer encoding of the labels, followed by OneHotEncoder to perform a one hot encoding of the encoded integers.
+
+While having fika in IlCaffe, updated trialSVM.py to include 2 additional subscripts. The first performs a basic window creation of the AA and states (configurable window size) for i+windowsize, but is yet to include the ability to retrieve a window of i-X and i+X. This may not be an accurate representation of the complete dataset as it excludes the values in the front and tail of the sequence. The second script performs an encoding of the windows into an SVM compatible format, first by using LabelEncoder to encode the windows as integers, followed by OneHotEncoder to convert the integer-windows into an SVM compatible format (binary). To follow up with fine-tuning the window script, as well as starting on feeding the dataset to SVM.
+
+
