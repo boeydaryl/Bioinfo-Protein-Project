@@ -48,3 +48,11 @@ Spent the evening searching for relevant publications to the topic (machine lear
 Since the skating yesterday was so effective, did another quick round of skating today morning as well.
 
 To continue work on the one page project summary, and searching for more relevant publications.
+
+Publications:
+
+Biochimie. 2010 Oct;92(10):1330-4. doi: 10.1016/j.biochi.2010.06.013. Epub 2010 Jun 23.
+Amino Acids. 2008 Oct;35(3):581-90. doi: 10.1007/s00726-008-0084-z. Epub 2008 Apr 22.
+Bioinformatics. 2007 Oct 1;23(19):2507-17. Epub 2007 Aug 24.
+Bioinformatics. 2010 Feb 1;26(3):440-3. doi: 10.1093/bioinformatics/btp621. Epub 2009 Oct 29.
+
