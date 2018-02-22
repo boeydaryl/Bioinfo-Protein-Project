@@ -9,7 +9,7 @@ The overall motive of the project is to write a program that, given an amino aci
 Wrote a simple 3 line parser to format the dataset; first into a dictionary, followed by a pandas dataframe to allow for faster retrieval of data.
 
 
-2918 20 Feb
+2018 20 Feb
 
 Attended project introduction session, more about the project requirements was mentioned.
 Basic requirements:
@@ -32,4 +32,13 @@ As such, the plan for week 1 is to establish a solid project framework/guideline
 
 Interesting additional reading to get more specifics about Machine-Learning (https://machinelearningmastery.com/machine-learning-tribe/).
 
+Parsed and produced an output .csv file from buried-exposed.3line.txt called fulloutput.csv, and verified that the output matched that of the input.
 
+
+2018 21 Feb
+
+Went cross-country skiing (långfärdskridskor) in the morning and early afternoon to clear the mind, resulted in getting a better picture of the overall flow of the project.
+
+Brief summary of the project plan: END GOAL-> Predict buried/exposed states of a given sequence. Tools --> Dataset (Header, AA sequence, and state). Parse dataset (dictionary) --> Write script to retrieve a window of AAs and states (i+7, and i-7), including padding the AAs at the start and end. --> Encode these 15 residues/states into SVM-compatible format. --> When feeding to SVM, to slice dataset into training/validation segments for cross-validation. --> Train SVM. --> Test against other reference sequences to get metrics for comparison. --> Report.
+
+Spent the evening searching for relevant publications to the topic (machine learning, buried/exposed state, prediction) on pubmed. Found an interesting publication: Yu, DJ., Hu, J., Wu, XW. et al. Amino Acids (2013) 44: 1365. https://doi.org/10.1007/s00726-013-1472-6.
