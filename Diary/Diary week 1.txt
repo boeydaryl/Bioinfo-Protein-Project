@@ -56,3 +56,4 @@ Amino Acids. 2008 Oct;35(3):581-90. doi: 10.1007/s00726-008-0084-z. Epub 2008 Ap
 Bioinformatics. 2007 Oct 1;23(19):2507-17. Epub 2007 Aug 24.
 Bioinformatics. 2010 Feb 1;26(3):440-3. doi: 10.1093/bioinformatics/btp621. Epub 2009 Oct 29.
 
+With respect to the encoding of the AAs and states, this is an excellent resource (https://machinelearningmastery.com/how-to-one-hot-encode-sequence-data-in-python/). Summary: to use LabelEncoder to first create integer encoding of the labels, followed by OneHotEncoder to perform a one hot encoding of the encoded integers.

@@ -27,6 +27,12 @@ def threelineparser(filename, outputfilename):
     #df[1] = df[1].astype(str).replace('e', 1)
     #print(datadict)
     return datadict
+    
+
+def windowmaker(D):
+    
+    
+    
 
 
 def classifier(D):
@@ -48,4 +54,5 @@ def classifier(D):
 
 if __name__ == "__main__":
     threelineparser('/Users/daryl/Documents/Bioinfo-Protein-Project/Project/Datasets/testfile.txt', 'fulloutput.csv')
+    windowmaker(datadict)
     classifier(datadict)
