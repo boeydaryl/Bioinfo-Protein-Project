@@ -37,8 +37,14 @@ Parsed and produced an output .csv file from buried-exposed.3line.txt called ful
 
 2018 21 Feb
 
-Went cross-country skiing (långfärdskridskor) in the morning and early afternoon to clear the mind, resulted in getting a better picture of the overall flow of the project.
+Went cross-country skating (långfärdskridskor) in the morning and early afternoon to clear the mind, resulted in getting a better picture of the overall flow of the project.
 
 Brief summary of the project plan: END GOAL-> Predict buried/exposed states of a given sequence. Tools --> Dataset (Header, AA sequence, and state). Parse dataset (dictionary) --> Write script to retrieve a window of AAs and states (i+7, and i-7), including padding the AAs at the start and end. --> Encode these 15 residues/states into SVM-compatible format. --> When feeding to SVM, to slice dataset into training/validation segments for cross-validation. --> Train SVM. --> Test against other reference sequences to get metrics for comparison. --> Report.
 
 Spent the evening searching for relevant publications to the topic (machine learning, buried/exposed state, prediction) on pubmed. Found an interesting publication: Yu, DJ., Hu, J., Wu, XW. et al. Amino Acids (2013) 44: 1365. https://doi.org/10.1007/s00726-013-1472-6.
+
+2018 22 Feb
+
+Since the skating yesterday was so effective, did another quick round of skating today morning as well.
+
+To continue work on the one page project summary, and searching for more relevant publications.
