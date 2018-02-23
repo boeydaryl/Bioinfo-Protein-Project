@@ -52,6 +52,12 @@ def windowmaker(D, windowsize):
     for element in Statelist:
         for elementi in range(0, len(element)-(windowsize-1)):
             Statewindow.append(element[elementi:elementi+windowsize])
+    """for seq in AAlist:
+        for AA in range(0, len(seq)-(windowsize-1)):
+            AAwindow.append(seq[AA:AA+windowsize])
+    for element in Statelist:
+        for elementi in range(0, len(element)-(windowsize-1)):
+            Statewindow.append(element[elementi:elementi+windowsize])"""
     return AAwindow
     return Statewindow
 
@@ -65,14 +71,16 @@ def classifier(D):
     #print(AADict)
     #print(AAwindow)
     for seq in AAwindow:
-        list1 = []
         for AA in seq:
             if AA in AADict.keys():
+                print(AADict[AA])
+                list1 = []
                 list1.append(AADict[AA])
+                #list2 = str(list1)
         Encoded_AAWindow.append(list1)
-    
+    #print(Encoded_AAWindow)
 
-    print(Encoded_AAWindow)
+    #print(Encoded_AAWindow)
     """data1 = array(AAwindow)
     AAwindow_le = le.fit_transform(data1)
     AAwindow_le = AAwindow_le.reshape(len(AAwindow_le), 1)
@@ -89,6 +97,6 @@ def classifier(D):
 
 
 if __name__ == "__main__":
-    threelineparser('/Users/daryl/Documents/Bioinfo-Protein-Project/Project/Datasets/testfile.txt', 'fulloutput.csv')
+    threelineparser('/Users/daryl/Documents/Bioinfo-Protein-Project/Project/Datasets/testfile1.txt', 'fulloutput.csv')
     windowmaker(datadict, 3)
-    #classifier(datadict)
+    classifier(datadict)
