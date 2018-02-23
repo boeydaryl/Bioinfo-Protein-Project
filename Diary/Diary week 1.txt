@@ -61,4 +61,8 @@ With respect to the encoding of the AAs and states, this is an excellent resourc
 
 While having fika in IlCaffe, updated trialSVM.py to include 2 additional subscripts. The first performs a basic window creation of the AA and states (configurable window size) for i+windowsize, but is yet to include the ability to retrieve a window of i-X and i+X. This may not be an accurate representation of the complete dataset as it excludes the values in the front and tail of the sequence. The second script performs an encoding of the windows into an SVM compatible format, first by using LabelEncoder to encode the windows as integers, followed by OneHotEncoder to convert the integer-windows into an SVM compatible format (binary). To follow up with fine-tuning the window script, as well as starting on feeding the dataset to SVM.
 
+2018 23 Feb 
+
+To improve upon the window generation script by improving iterative loop in generating windows including both the + and - of i.
+
 
