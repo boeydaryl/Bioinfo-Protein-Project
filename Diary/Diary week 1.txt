@@ -65,4 +65,4 @@ While having fika in IlCaffe, updated trialSVM.py to include 2 additional subscr
 
 To improve upon the window generation script by improving iterative loop in generating windows including both the + and - of i.
 
-
+Received advice from the TAs to start with more rudimentary methods to encode the windows, as using LabelEncoder is presently leading to incorrect values. Therefore generated a dictionary of binary values of 20 characters for the 20 amino acids, plus an additional residue called "O" to be used for window generation(padding). Encode the windows using this dictionary instead using a for loop to iterate through each window.

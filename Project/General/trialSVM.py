@@ -3,9 +3,9 @@
 import pandas as pd
 import numpy as np
 from sklearn import svm
-from sklearn.feature_extraction import DictVectorizer
-from sklearn.preprocessing import LabelEncoder
-from sklearn.preprocessing import OneHotEncoder
+#from sklearn.feature_extraction import DictVectorizer
+#from sklearn.preprocessing import LabelEncoder
+#from sklearn.preprocessing import OneHotEncoder
 from numpy import array
 
 
@@ -57,12 +57,23 @@ def windowmaker(D, windowsize):
 
 
 def classifier(D):
-    le = LabelEncoder()
-    ohe = OneHotEncoder(sparse=False)
-    AA = []
+    #le = LabelEncoder()
+    #ohe = OneHotEncoder(sparse=False)
+    Encoded_AAWindow = []
     Features = []
-    #for i in AAwindow:
-    data1 = array(AAwindow)
+    AADict = {'A':['1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'], 'R':['0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'], 'N':['0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'], 'D':['0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'], 'C':['0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'], 'Q':['0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'], 'E':['0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'], 'G':['0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'], 'H':['0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'], 'I':['0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'], 'L':['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0'], 'K':['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0'], 'M':['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0'], 'F':['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0'], 'P':['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0'], 'S':['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0'], 'T':['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0'], 'W':['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0'], 'Y':['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0'], 'V':['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1'], 'O':['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0']}
+    #print(AADict)
+    #print(AAwindow)
+    for seq in AAwindow:
+        list1 = []
+        for AA in seq:
+            if AA in AADict.keys():
+                list1.append(AADict[AA])
+        Encoded_AAWindow.append(list1)
+    
+
+    print(Encoded_AAWindow)
+    """data1 = array(AAwindow)
     AAwindow_le = le.fit_transform(data1)
     AAwindow_le = AAwindow_le.reshape(len(AAwindow_le), 1)
     AAwindow_ohe = ohe.fit_transform(AAwindow_le)
@@ -71,7 +82,7 @@ def classifier(D):
     Statewindow_le = le.fit_transform(data2)
     Statewindow_le = Statewindow_le.reshape(len(Statewindow_le), 1)
     Statewindow_ohe = ohe.fit_transform(Statewindow_le)
-    print(Statewindow_ohe)
+    print(Statewindow_ohe)"""
 
 
 
@@ -79,5 +90,5 @@ def classifier(D):
 
 if __name__ == "__main__":
     threelineparser('/Users/daryl/Documents/Bioinfo-Protein-Project/Project/Datasets/testfile.txt', 'fulloutput.csv')
-    windowmaker(datadict, 5)
-    classifier(datadict)
+    windowmaker(datadict, 3)
+    #classifier(datadict)
