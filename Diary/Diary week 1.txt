@@ -71,4 +71,8 @@ Received advice from the TAs to start with more rudimentary methods to encode th
 
 Saturday. Worked on the sliding window algorithm on paper, deducing to use multiple if conditions within the window creation for loop. Pad the residues in front if (i-windowsize<0), by X*(i-windowsize).
 
+2018 25 Feb
+
+Sunday. Went rock climbing in the morning, and continued working on the script after lunch. Worked specifically on the window generation, deciding to use the deque function within a for loop to iterate through each sequence, generating a window of specific windowsize, and adding a "padding" for an empty amino acid "O" for windows with empty spaces.
+
 

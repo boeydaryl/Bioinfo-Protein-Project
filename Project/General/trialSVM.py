@@ -7,6 +7,7 @@ from sklearn import svm
 #from sklearn.preprocessing import LabelEncoder
 #from sklearn.preprocessing import OneHotEncoder
 from numpy import array
+from collections import deque
 
 
 
@@ -62,24 +63,73 @@ def windowmaker(D, windowsize):
     return Statewindow
 
 
+def windowmaker1(D, windowsize):
+    global AAwindow
+    global Statewindow
+    AAlist = []
+    Statelist = []
+    AAwindow = []
+    AAwin = []
+    Statewindow = []
+    for x, y in D.items():
+        for z in y:
+            if z.isupper():
+                AAlist.append(z)
+            if z.islower():
+                Statelist.append(z)
+    for seq in AAlist:
+        window = deque(maxlen=windowsize)
+        AAlist1 = []
+        for AA in seq:
+            window.append(AA)
+            window1 = ''.join(window)
+            if len(window1) < windowsize:
+                distance = windowsize - len(window1)
+                padded = distance*'O' + window1
+                AAlist1.append(padded)
+            else:
+                AAlist1.append(window1)
+        print(AAlist1)
+    """for seq in AAlist1:
+        distance = windowsize-len(seq)
+        if len(seq) < windowsize:
+            padded = distance*'O' + seq
+            print(padded)"""
+    """for seq in AAlist:
+        print(seq)
+        for AA in range(0, len(seq)):
+            if AA-windowsize <=0:
+                distance = (-(AA-windowsize)-1)
+                if distance >= 1:
+                    print(distance)
+                    Padded = distance*'O' + seq[0]
+                    if len(Padded) < windowsize:
+                        Padded = Padded + seq[distance]
+                    AAwin.append(Padded)
+            AAwindow.append(seq[AA:AA+windowsize])"""
+    for element in Statelist:
+        for elementi in range(0, len(element)-(windowsize-1)):
+            Statewindow.append(element[elementi:elementi+windowsize])
+    return AAwindow
+    return Statewindow
+    
+
 def classifier(D):
     #le = LabelEncoder()
     #ohe = OneHotEncoder(sparse=False)
     Encoded_AAWindow = []
     Features = []
-    AADict = {'A':['1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'], 'R':['0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'], 'N':['0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'], 'D':['0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'], 'C':['0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'], 'Q':['0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'], 'E':['0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'], 'G':['0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'], 'H':['0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'], 'I':['0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'], 'L':['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0'], 'K':['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0'], 'M':['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0'], 'F':['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0'], 'P':['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0'], 'S':['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0'], 'T':['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0'], 'W':['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0'], 'Y':['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0'], 'V':['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1'], 'O':['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0']}
+    AADict = {'A':[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'R':[0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'N':[0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'D':[0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, ], 'C':[0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'Q':[0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'E':[0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'G':[0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'H':[0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'I':[0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'L':[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'K':[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0], 'M':[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0], 'F':[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0], 'P':[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0], 'S':[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0], 'T':[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0], 'W':[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0], 'Y':[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0], 'V':[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], 'O':[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
     #print(AADict)
     #print(AAwindow)
     for seq in AAwindow:
         for AA in seq:
             if AA in AADict.keys():
-                print(AADict[AA])
                 list1 = []
                 list1.append(AADict[AA])
                 #list2 = str(list1)
         Encoded_AAWindow.append(list1)
-    #print(Encoded_AAWindow)
-
+    print(Encoded_AAWindow)
     #print(Encoded_AAWindow)
     """data1 = array(AAwindow)
     AAwindow_le = le.fit_transform(data1)
@@ -98,5 +148,6 @@ def classifier(D):
 
 if __name__ == "__main__":
     threelineparser('/Users/daryl/Documents/Bioinfo-Protein-Project/Project/Datasets/testfile1.txt', 'fulloutput.csv')
-    windowmaker(datadict, 3)
-    classifier(datadict)
+    #windowmaker(datadict, 3)
+    windowmaker1(datadict, 3)
+    #classifier(datadict)
