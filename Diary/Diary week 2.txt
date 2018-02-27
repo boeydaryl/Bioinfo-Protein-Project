@@ -4,3 +4,7 @@ Diary Week 2
 
 Continue working on the generation of SKlearn vector. Usage of intermediate amino acid "windows" before encoding is not advised; to generate encoding direct from sequence, adding the padding when necessary.
 
+Created a new streamlined version of trialSVM.py, called VectorCreator.py.
+
+Attempted a preliminary version of this code using Deques; producing an increasing subsequence up to the maximum length, which was configured to be the window size, and directly encoded the output from deque. By selecting encoded sequences of longer than (pad+1)*20, the algorithm selects the correct first encoded window and padding it with the difference between supposed length and the shorter-than window; the encoded windows which have correct lengths are not modified. This works to produce the correct output for the head window to second-to-last window. To improve the algorithm to produce the tail windows as well.
+
