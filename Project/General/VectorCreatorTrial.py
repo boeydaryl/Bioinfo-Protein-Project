@@ -44,73 +44,39 @@ def windowmaker1(A, S, windowsize):
     test = []
     windowlist = []
     AAWindow = []
-    FrameWindow = []
     AADict = {'A':[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'R':[0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'N':[0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'D':[0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, ], 'C':[0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'Q':[0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'E':[0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'G':[0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'H':[0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'I':[0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'L':[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'K':[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0], 'M':[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0], 'F':[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0], 'P':[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0], 'S':[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0], 'T':[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0], 'W':[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0], 'Y':[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0], 'V':[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], 'O':[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
     StateDict = {'e':1, 'b':2}
     pad = windowsize//2
     print(A)
-    """for seq in A:
-        window = deque(maxlen=windowsize)
-        windowR = deque(maxlen=windowsize)
-        for AA in seq:
-            list1 = []
-            list2 = []
-            window.append(AA)
-            window1 = ''.join(window)
-            windowR.append(reversed(AA))
-            window2 = ''.join(windowR)
-            print(windowR)
-            #print(window2)
-            for i in window1:
-                if i in AADict.keys():
-                    #i = AADict[i]
-                    list1.extend(AADict[i])
-            for i in window2:
-                list2.append(i)
-                #print(list2)
-            AAWindow.append(list1)
-    for i in AAWindow:
-        if len(i) >= (pad+1)*20:
-            total_length = windowsize*20
-            padding = total_length - len(i)
-            i = int(padding/20)*[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] + i
-            FrameWindow.append(i)
-    print(len(FrameWindow))"""
     for seq in A:
+        print(len(seq))
         for AA in range(0, len(seq)):
-            if AA < pad:
-                #print(seq[AA])
-                if AA <= 0:
-                    seq_window1 = pad*'O' + seq[AA:AA+pad+1]
-                    print(seq_window1)
-                    windowlist.append(seq_window1)
-                else:
-                    seq_window2 = pad//2*'O' + seq[(AA-pad//2):(AA+pad+1)]
-                    print(seq_window2)
-                    windowlist.append(seq_window2)
-            elif AA >= pad and AA <= len(seq)-pad-1:
+            if AA <= 0:
+                seq_window = seq[(AA):(AA+pad+1)]
+                seq_window = (windowsize-len(seq_window))*'O'+ seq_window
+                #print(seq_window)
+                windowlist.append(seq_window)
+            elif AA > 0 and AA < pad:
+                seq_window2 = seq[0:(AA+pad+1)]
+                seq_window2 = (windowsize-len(seq_window2))*'O'+ seq_window2
+                #print(seq_window2)
+                windowlist.append(seq_window2)
+            elif AA >= pad:
                 seq_window3 = seq[(AA-pad):(AA+pad+1)]
-                windowlist.append(seq_window3)
-                print(seq_window3)
-            elif AA > len(seq)-pad-1:
-                #print(seq[AA])
-                seq_window4 = seq[(AA-pad):(AA+pad+1)] + pad *'O'
-                print(seq_window4)
-                """for i in seq_window3:
-                    if i in AADict.keys():
-                        i = AADict[i]
-                        FrameWindow = i * windowsize
-                        #print(FrameWindow)
-                        AAWindow.append(FrameWindow)"""
-        for AA in range(len(seq)):
-            if AA < windowsize:
-                seqwindow = pad*'0' + seq[AA]
-                #print(seqwindow)
+                #print(seq_window3)
+                if len(seq_window3) == windowsize:
+                    windowlist.append(seq_window3)
+                if len(seq_window3) < windowsize:
+                    seq_window3 = seq_window3 + (windowsize-len(seq_window3))*'O'
+                    #print(seq_window3)
+                    windowlist.append(seq_window3)
+    print(windowlist)
+    print(len(windowlist))
 
 
 
 
 if __name__ == "__main__":
     threelineparser('/Users/daryl/Documents/Bioinfo-Protein-Project/Project/Datasets/testfile2.txt', 'fulloutput.csv')
-    windowmaker1(AAlist, Statelist, 7)
+    windowmaker1(AAlist, Statelist, 3)
     #classifier(datadict)

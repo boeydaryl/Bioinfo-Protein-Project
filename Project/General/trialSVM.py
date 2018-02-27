@@ -78,6 +78,7 @@ def threelineparser(filename, outputfilename):
 def windowmaker1(D, windowsize):
     global AAwindow
     global Statewindow
+    
     AAlist = []
     Statelist = []
     AAwindow = []
@@ -164,7 +165,7 @@ def classifier(D):
 
 
 if __name__ == "__main__":
-    threelineparser('/Users/daryl/Documents/Bioinfo-Protein-Project/Project/Datasets/testfile3.txt', 'fulloutput.csv')
+    threelineparser('/Users/daryl/Documents/Bioinfo-Protein-Project/Project/Datasets/testfile2.txt', 'fulloutput.csv')
     #windowmaker(datadict, 3)
     windowmaker1(datadict, 3)
     classifier(datadict)
