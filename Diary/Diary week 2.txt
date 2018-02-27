@@ -12,3 +12,6 @@ Attempted a preliminary version of this code using Deques; producing an increasi
 
 Rejected the idea of using deques due to complication, decided instead to return the iterative function. Successfully generated windows for a single sequence including padding by stipulating 3 if conditions: 1. if the index <=0, meaning the first residue, 2. if the index is >0 and < padding, meaning the residues between the first and the padded distance, and 3. if the index >= padding, meaning the remaining residues. Padding was applied accordingly for all 3 conditions depending on how many residues are missing from total window length. This was done in a new script called VectorCreatorTrial.py to retain notes from the previous script.
 
+VectorCreatorTrial also performs a hard-coded binary encoding of both the AA windows (to features) and the topology windows (to labels, and outputs two final lists to be fed into the SVM. A small script prior to the input of the encoded features asserts that the count for both encoded features and labels is the same as a quality control.
+
+In the evening, attempted to feed the encoded features to the SVM, but kept turning a value error "setting an array element with a sequence".
