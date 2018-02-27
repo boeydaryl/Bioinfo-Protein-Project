@@ -12,6 +12,8 @@ from collections import deque
 #from itertools import chain
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import KFold
+
 
 
 
@@ -42,9 +44,9 @@ def threelineparser(filename, outputfilename):
     
 
 def windowmaker_encoder(A, S, windowsize):
-    global encoded_seq_list
+    global encoded_seq
     global encoded_state_list
-    encoded_seq_list = []
+    encoded_seq = []
     encoded_state_list = []
     AADict = {'A':[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'R':[0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'N':[0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'D':[0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, ], 'C':[0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'Q':[0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'E':[0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'G':[0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'H':[0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'I':[0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'L':[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'K':[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0], 'M':[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0], 'F':[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0], 'P':[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0], 'S':[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0], 'T':[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0], 'W':[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0], 'Y':[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0], 'V':[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], 'B':[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
     StateDict = {'e':[0], 'b':[1]}
@@ -52,9 +54,9 @@ def windowmaker_encoder(A, S, windowsize):
     #window generator, storing a list of encoded sequences [list of vectors per frame]
     for seq in A:
         windowlist = []
-        encoded_seq = []
         state_list = []
         print(seq)
+        print(len(seq))
         for AA in range(0, len(seq)):
             if AA <= 0:
                 seq_window = seq[(AA):(AA+pad+1)]
@@ -72,29 +74,23 @@ def windowmaker_encoder(A, S, windowsize):
                     seq_window3 = seq_window3 + (windowsize-len(seq_window3))*'B'
                     #print(seq_window3)
                     windowlist.append(seq_window3)
-        #print(windowlist)
+        print(windowlist)
         #list of combined vectors for each window, for 1 sequence
         for frame in windowlist:
             frame_list = [] #Combined vector for each window
             for AA in frame:
                 if AA in AADict.keys():
                     frame_list.extend(AADict[AA])
-                    frame_list_j = ''.join(map(str, frame_list))
-            encoded_seq.append(frame_list_j)
-        encoded_seq_list.append(encoded_seq)
-    #print(frame_list_j)
+            encoded_seq.append(frame_list)
+    #print(frame_list)
     #print(encoded_seq)
-    #print(encoded_seq_list)
+    print(len(encoded_seq))
     for states in S:
         state_list = []
         for state in states:
             if state in StateDict.keys():
-                state_list.extend(StateDict[state])
-                state_list_j = ''.join(map(str, state_list))
-        encoded_state_list.append(state_list)
-    #print(encoded_state_list)
-    #print(state_list)
-    return (encoded_seq_list, encoded_state_list)
+                encoded_state_list.extend(StateDict[state])
+    return (encoded_seq, encoded_state_list)
 
 
 def SVMscript(ESL1, ESL2):
@@ -105,18 +101,20 @@ def SVMscript(ESL1, ESL2):
     for element in ESL2:
         statecount += 1
     assert seqcount == statecount
+    #print(seqcount)
     AA_array = np.array(ESL1)
     state_array = np.array(ESL2)
-    print(AA_array)
-    print(state_array)
-    x,y = AA_array[:-1], state_array[:-1]
-    print(x,y)
-    clf = SVC(gamma =0.001, kernel = 'linear', C=1.0).fit(x,y)
+    #print(AA_array)
+    #print(state_array)
+    x, y = AA_array, state_array
+    clf = SVC(gamma =0.001, kernel = 'linear', C=1.0)
+    scores = cross_val_score(clf, x, y , cv=2)
+    print(scores)
     
     
     
 
 if __name__ == "__main__":
-    threelineparser('/Users/daryl/Documents/Bioinfo-Protein-Project/Project/Datasets/testfile5.txt', 'fulloutput.csv')
-    print(windowmaker_encoder(AAlist, Statelist, 3))
-    SVMscript(encoded_seq_list, encoded_state_list)
+    threelineparser('/Users/daryl/Documents/Bioinfo-Protein-Project/Project/Datasets/testfile1.txt', 'fulloutput.csv')
+    windowmaker_encoder(AAlist, Statelist, 3)
+    SVMscript(encoded_seq, encoded_state_list)
