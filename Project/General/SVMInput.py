@@ -1,5 +1,3 @@
-#Trial SVM classifier
-
 #import pandas as pd
 import numpy as np
 from sklearn import svm
@@ -39,7 +37,7 @@ def threelineparser(filename, outputfilename):
 
 def windowmaker_encoder(A, S, windowsize):
     encoded_seq = []
-    encoded_state_list = []
+    encoded_state = []
     AADict = {
     'A':[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
     'R':[0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
@@ -67,7 +65,6 @@ def windowmaker_encoder(A, S, windowsize):
     #window generator, storing a list of encoded sequences [list of vectors per frame]
     for seq in A:
         windowlist = []
-        state_list = []
         #print(seq)
         #print(len(seq))
         for AA in range(0, len(seq)):
@@ -88,36 +85,35 @@ def windowmaker_encoder(A, S, windowsize):
                     #print(seq_window3)
                     windowlist.append(seq_window3)
         #print(windowlist)
-        #list of combined vectors for each window, for 1 sequence
         for frame in windowlist:
             frame_list = [] #Combined vector for each window
             for AA in frame:
                 if AA in AADict.keys():
                     frame_list.extend(AADict[AA])
                     #print(len(frame_list))
-            encoded_seq.append(frame_list)
+            assert len(frame_list) == windowsize*20
+            encoded_seq.append(frame_list)#list of combined vectors for each window
     #print(len(frame_list))
     #print(encoded_seq)
     #print(len(encoded_seq))
     for states in S:
-        state_list = []
         for state in states:
             if state in StateDict.keys():
-                encoded_state_list.extend(StateDict[state])
-    return encoded_seq, encoded_state_list
+                encoded_state.extend(StateDict[state])
+    return encoded_seq, encoded_state
 
 
-def SVMscript(ESL1, ESL2, cvfold):
+def SVMscript(E_seq, E_state, cvfold):
     seqcount = 0
-    for element in ESL1:
+    for element in E_seq:
         seqcount += 1
     statecount = 0
-    for element in ESL2:
+    for element in E_state:
         statecount += 1
     assert seqcount == statecount
     #print(seqcount)
-    AA_array = np.array(ESL1)
-    state_array = np.array(ESL2)
+    AA_array = np.array(E_seq)
+    state_array = np.array(E_state)
     #print(AA_array)
     #print(state_array)
     x, y = AA_array, state_array
@@ -138,5 +134,5 @@ if __name__ == "__main__":
     AAlist, Statelist, datadict = threelineparser(data_file, 'fulloutput.csv')
     
     #print(len(AAlist), len(Statelist), len(datadict))
-    encoded_seq, encoded_state_list = windowmaker_encoder(AAlist, Statelist, 9)
-    print(SVMscript(encoded_seq, encoded_state_list, 5))
+    encoded_seq, encoded_state = windowmaker_encoder(AAlist, Statelist, 5)
+    print(SVMscript(encoded_seq, encoded_state, 5))
