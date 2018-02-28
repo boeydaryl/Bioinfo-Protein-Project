@@ -20,3 +20,8 @@ In the evening, attempted to feed the encoded features to the SVM, but kept turn
 
 Realised there was an error in the AADictionary; where there was an amino acid with missing zeros, and was not coming up to a total of 20. Editing that resolved all problems; chances are that the larger files had the problematic amino acid in the sequence.
 
+To try running the cross_val_score for test files of 10 amino acids and 50 amino acids, with varying window sizes.
+
+In the instance of the 10 amino acids and window size 3, with cv(number of computations with different splits each time) 5, the average accuracy of the linear kernel SVM was 0.707253637375715. Running the same conditions with window size 5 returned an accuracy of 0.7059407270912511 (test time 0m3.630s) , while window size 7 gave 0.7002514491919076. Bumping up the window size to 15 gave an accuracy of 0.6730958961956313.
+
+Running the cross-validation on testfilesize50 with windowsize 5 and 5 splits gave an average accuracy of 0.6834867269419853 (test time 1m44.621s).

@@ -87,7 +87,7 @@ def windowmaker_encoder(A, S, windowsize):
     return encoded_seq, encoded_state_list
 
 
-def SVMscript(ESL1, ESL2):
+def SVMscript(ESL1, ESL2, cvfold):
     seqcount = 0
     for element in ESL1:
         seqcount += 1
@@ -98,22 +98,25 @@ def SVMscript(ESL1, ESL2):
     #print(seqcount)
     AA_array = np.array(ESL1)
     state_array = np.array(ESL2)
-    #print(AA_array)
-    #print(state_array)
+    print(AA_array)
+    print(state_array)
     x, y = AA_array, state_array
     clf = SVC(gamma =0.001, kernel = 'linear', C=1.0)
     print(clf)
     print(x.shape, y.shape)
-    scores = cross_val_score(clf, x, y , cv=3)
+    scores = cross_val_score(clf, x, y , cv=cvfold)
+    average_score = np.average(scores)
     print(scores)
+    print(average_score)
+    return average_score
     
     
     
 
 if __name__ == "__main__":
-    data_file = '/Users/daryl/Documents/Bioinfo-Protein-Project/Project/Datasets/testfilesize10.txt'
+    data_file = '/Users/daryl/Documents/Bioinfo-Protein-Project/Project/Datasets/testfilesize50.txt'
     AAlist, Statelist, datadict = threelineparser(data_file, 'fulloutput.csv')
     
-    print(len(AAlist), len(Statelist), len(datadict))
-    encoded_seq, encoded_state_list = windowmaker_encoder(AAlist, Statelist, 7)
-    SVMscript(encoded_seq, encoded_state_list)
+    #print(len(AAlist), len(Statelist), len(datadict))
+    encoded_seq, encoded_state_list = windowmaker_encoder(AAlist, Statelist, 5)
+    SVMscript(encoded_seq, encoded_state_list, 5)
