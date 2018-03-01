@@ -84,7 +84,7 @@ def windowmaker_encoder(A, S, windowsize):
                     seq_window3 = seq_window3 + (windowsize-len(seq_window3))*'B'
                     #print(seq_window3)
                     windowlist.append(seq_window3)
-        #print(windowlist)
+        print(windowlist)
         for frame in windowlist:
             frame_list = [] #Combined vector for each window
             for AA in frame:
@@ -134,5 +134,5 @@ if __name__ == "__main__":
     AAlist, Statelist, datadict = threelineparser(data_file, 'fulloutput.csv')
     
     #print(len(AAlist), len(Statelist), len(datadict))
-    encoded_seq, encoded_state = windowmaker_encoder(AAlist, Statelist, 5)
+    encoded_seq, encoded_state = windowmaker_encoder(AAlist, Statelist, 21)
     print(SVMscript(encoded_seq, encoded_state, 5))
