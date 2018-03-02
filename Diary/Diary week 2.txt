@@ -34,5 +34,5 @@ Additionally, further cleaned and optimised SVMInput.py to print only useful sco
 
 2018 2 Mar
 
-Confirmed that SVMInput script works to parse and feed encoded vectors to SVC in Sklearn. This works with all testfiles included in the repository, including testfilesize10.txt and testfilesize50.txt.
+Confirmed that SVMInput script located in /Users/daryl/Documents/Bioinfo-Protein-Project/Project/General works to parse and feed encoded vectors to SVC in Sklearn. This works with all testfiles included in the repository, including testfilesize10.txt and testfilesize50.txt.
 
