@@ -32,3 +32,7 @@ Finalised preliminary presentation for "Learning protein multi-view features in 
 
 Additionally, further cleaned and optimised SVMInput.py to print only useful scores, and removed redundant bits of code that was included in the writing phase.
 
+2018 2 Mar
+
+Confirmed that SVMInput script works to parse and feed encoded vectors to SVC in Sklearn. This works with all testfiles included in the repository, including testfilesize10.txt and testfilesize50.txt.
+
