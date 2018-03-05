@@ -1,0 +1,7 @@
+Diary week 3
+
+2018 5 Mar
+
+Risk of bias if using built in function? When relying on in-built function cross_val_score to split the datasets, there's a chance that the randomisation introduces windows with more "padding" in either the training or testing dataset, introducing an artificial bias. It may therefore be ideal to split the proteins into datasets at the source, when parsing the text file. An idea is to parse the sequences and states into dictionaries, and draw random numbers from the dictionaries to split them into datasets.
+
+Still noticing that any increment of windowsize past size 9 leads to depreciation in the accuracy score of the SVM. Why?
