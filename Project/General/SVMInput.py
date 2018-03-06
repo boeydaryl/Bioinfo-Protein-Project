@@ -130,9 +130,9 @@ def SVMscript(E_seq, E_state, cvfold):
     
 
 if __name__ == "__main__":
-    data_file = '/Users/daryl/Documents/Bioinfo-Protein-Project/Project/Datasets/testfilesize10.txt'
+    data_file = '/Users/daryl/Documents/Bioinfo-Protein-Project/Project/Datasets/buried-exposed.3line.txt'
     AAlist, Statelist, datadict = threelineparser(data_file, 'fulloutput.csv')
     
     #print(len(AAlist), len(Statelist), len(datadict))
-    encoded_seq, encoded_state = windowmaker_encoder(AAlist, Statelist, 21)
-    print(SVMscript(encoded_seq, encoded_state, 5))
+    encoded_seq, encoded_state = windowmaker_encoder(AAlist, Statelist, 9)
+    print(SVMscript(encoded_seq, encoded_state, 3))

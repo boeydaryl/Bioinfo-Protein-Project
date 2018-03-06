@@ -5,3 +5,15 @@ Diary week 3
 Risk of bias if using built in function? When relying on in-built function cross_val_score to split the datasets, there's a chance that the randomisation introduces windows with more "padding" in either the training or testing dataset, introducing an artificial bias. It may therefore be ideal to split the proteins into datasets at the source, when parsing the text file. An idea is to parse the sequences and states into dictionaries, and draw random numbers from the dictionaries to split them into datasets.
 
 Still noticing that any increment of windowsize past size 9 leads to depreciation in the accuracy score of the SVM. Why?
+
+To try running a cross_val_score for entire dataset, with windowsize 9, and check state of the art predictor as to why size 9 is optimum.
+
+To save a model, use joblib to save the trained SVM model as a .pkl file, after fitting the parameters to the clf.
+
+Optimising the SVM -> To consider using gridsearch (http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html) to optimise SVM parameters. But prior to embarking on this, to optimise ideal window size (either by testing using cross_val_score, or comparing against previous references).
+
+Ran the cross-validation (cross_val_score) for entire dataset (375 proteins) using a 3 fold cross-validation and windowsize 9, which resulted in an accuracy measure of 0.69, taking a total of 230 minutes system time.
+
+2018 6 Mar
+
+Found a few references to appropriate window size, with conflicting information. Some mention use of window size 15 and some window size 9. 
