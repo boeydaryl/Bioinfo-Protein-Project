@@ -121,21 +121,22 @@ def SVMscript(E_seq, E_state, cvfold, filename):
     clf = SVC(gamma =0.001, kernel = 'linear', C=1.0)
     #print(clf)
     #print(x.shape, y.shape)
-    scores = cross_val_score(clf, x, y , cv=cvfold)
-    average_score = np.average(scores)
+    #scores = cross_val_score(clf, x, y , cv=cvfold)
+    #average_score = np.average(scores)
     model = clf.fit(x, y)
     #print(scores)
     #print(average_score)
-    #filename1 = filename
     joblib.dump(model, filename)
-    return average_score, 
+    #return average_score
+    
+    
     
     
     
 
 if __name__ == "__main__":
-    data_file = '/Users/daryl/Documents/Bioinfo-Protein-Project/Project/Datasets/testfilesize10.txt'
+    data_file = '/Users/daryl/Documents/Bioinfo-Protein-Project/Project/Datasets/buried-exposed.3line.txt'
     AAlist, Statelist, datadict = threelineparser(data_file, 'fulloutput.csv')
     #print(len(AAlist), len(Statelist), len(datadict))
     encoded_seq, encoded_state = windowmaker_encoder(AAlist, Statelist, 9)
-    print(SVMscript(encoded_seq, encoded_state, 3, 'output.pkl'))
+    print(SVMscript(encoded_seq, encoded_state, 3, 'output_full.pkl'))
