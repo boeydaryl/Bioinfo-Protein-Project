@@ -16,4 +16,6 @@ Ran the cross-validation (cross_val_score) for entire dataset (375 proteins) usi
 
 2018 6 Mar
 
-Found a few references to appropriate window size, with conflicting information. Some mention use of window size 15 and some window size 9. 
+Found a few references to appropriate window size, with conflicting information. Some mention use of window size 15 and some window size 9.
+
+Best kernel to use? Need to be optimised.

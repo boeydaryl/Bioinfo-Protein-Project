@@ -6,6 +6,7 @@ from numpy import array
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import KFold
+from sklearn.externals import joblib
 
 
 
@@ -103,7 +104,7 @@ def windowmaker_encoder(A, S, windowsize):
     return encoded_seq, encoded_state
 
 
-def SVMscript(E_seq, E_state, cvfold):
+def SVMscript(E_seq, E_state, cvfold, filename):
     seqcount = 0
     for element in E_seq:
         seqcount += 1
@@ -122,17 +123,19 @@ def SVMscript(E_seq, E_state, cvfold):
     #print(x.shape, y.shape)
     scores = cross_val_score(clf, x, y , cv=cvfold)
     average_score = np.average(scores)
+    model = clf.fit(x, y)
     #print(scores)
     #print(average_score)
-    return average_score
+    #filename1 = filename
+    joblib.dump(model, filename)
+    return average_score, 
     
     
     
 
 if __name__ == "__main__":
-    data_file = '/Users/daryl/Documents/Bioinfo-Protein-Project/Project/Datasets/buried-exposed.3line.txt'
+    data_file = '/Users/daryl/Documents/Bioinfo-Protein-Project/Project/Datasets/testfilesize10.txt'
     AAlist, Statelist, datadict = threelineparser(data_file, 'fulloutput.csv')
-    
     #print(len(AAlist), len(Statelist), len(datadict))
     encoded_seq, encoded_state = windowmaker_encoder(AAlist, Statelist, 9)
-    print(SVMscript(encoded_seq, encoded_state, 3))
+    print(SVMscript(encoded_seq, encoded_state, 3, 'output.pkl'))
