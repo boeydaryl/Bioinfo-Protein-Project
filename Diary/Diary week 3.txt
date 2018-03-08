@@ -27,8 +27,10 @@ Dataset supposed to have relative file names (../)? Allow for input of testfile 
 
 Output in terminal from predictor program supposed to print:
 >ID
+
 Seq
-Topo
+
+Predicted Topo
 
 Trained model output_full.pkl is extremely large, 113MB, and cannot be pushed to github. A solution is to train the model on a partial part of the dataset instead. As such a short script "State_counter.py" was written to count the ratio of exposed/buried in parts of the dataset, to check if there's a significant bias or difference between different parts of the dataset. Testpart1 returned a ratio of 0.827, while testpart2 returned 0.849, and testpart3 0.81. It can be therefore concluded that the ratio of states between various parts of the dataset is fairly consistent, and training using a portion of the dataset may not lead to a less accurate result.
 
@@ -38,4 +40,10 @@ Trying to optimise predictor to parse and make predictions for multiple entries 
 
 To parse FASTA files, consider using Biopython. Biopython is also useful for connecting to NCBI servers for BLAST functions such as BLAST. Unfortunately biopython is incompatible with PSI-BLAST. As such BLAST+ was installed locally, and swissprot used as a database for conducting searches for PSI-BLAST.
 
+In order to include PSSM data in the model, PSI-BLAST should be performed on each protein sequence in the dataset to return individual PSSM files. As such a python script should be written to parse the dataset file into individual FASTA files, followed by a bash script to automate the blasting of each FASTA file and saving of the PSSM matrix files.
+
 Completed the predictor using a model fitted for testsize50.txt, which parses a text file with multiple proteins and prints the output in the format specified yesterday. To update readme with instructions to use predictor, as well as update predictor and model training scripts to use relative directories instead of hard-coded directories.
+
+To perform more metric scoring of the cross-valuation of the model using the size50 dataset. By specifying functions in the cross_val_score function, CVS returns scores of the test. Metrics to collect for classification include accuracy, average-precision, and a confusion matrix (good for presenting the accuracy of a classifier for 2 or more classes).
+
+Did more reading about optimisation of parameters used in fitting the model; C refers to the penalty C, kernel specifies the kernel to be used in separating the data (linear by default), while gamma specifies the sensitivity of the kernel to the differences in feature values. All these parameters are data-specific, and can be optimised using functions such as grid_search.

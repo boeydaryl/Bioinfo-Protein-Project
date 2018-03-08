@@ -106,7 +106,7 @@ def SVMTest(model, E_seq, Seq_len, header_list, seq_list):
     for n in seq_len:
         bigsum += n
         Corrected_seq_len.append(bigsum)
-    print(Corrected_seq_len)
+    #print(Corrected_seq_len)
     for n in range(len(Corrected_seq_len)):
         list1 = []
         #print(n)
