@@ -16,34 +16,15 @@ import SVMInput
 
 
 
-def threelineparser(filename, outputfilename):
-    file1 = open(filename, 'r')
-    datadict = dict()
-    AAlist = []
-    Statelist = []
-    AAcount = 0
-    for x in file1:
-        listAB = []
-        if ">" in x:
-            key = x.replace("\n", "")
-            AAcount += 1
-        elif x.isupper() and ">" not in x:
-            A = x.replace("\n", "")
-            AAlist.append(A)
-        elif x.islower() and ">" not in x:
-            B = x.replace("\n", "")
-            Statelist.append(B)
-            datadict[key] = [A, B]
-    #df = pd.DataFrame.from_dict(data=datadict, orient='index')
-    print(AAcount)
-    file1.close()
-    return AAlist, Statelist, datadict
+def opener(filename):
+    AAlist, Statelist = SVMInput.threelineparser(filename)
+    return AAlist, Statelist
 
 
 def SVMscript1():
     for windowsize in range(1, 3, 2):
         Encoded_seq, Encoded_state = SVMInput.windowmaker_encoder(AAlist, Statelist, windowsize)
-        #print(Encoded_state)
+        print(Encoded_state)
         AA_array = np.array(Encoded_seq)
         state_array = np.array(Encoded_state)
         X_train, Y_train = AA_array, state_array
@@ -53,7 +34,7 @@ def SVMscript1():
         clf = GridSearchCV(SVC(), param, n_jobs=1, cv=3, verbose=2, error_score=np.NaN, return_train_score=False)
         clf.fit(X_train, Y_train)
         df = pd.DataFrame(clf.cv_results_)
-        filename = str(win_len) + '.csv'
+        filename = str(windowsize) + '.csv'
         df.to_csv(filename, sep='\t', encoding='UTF-8')
 
     
@@ -63,6 +44,5 @@ def SVMscript1():
     
 
 if __name__ == "__main__":
-    data_file = '../Datasets/testfilesize50.txt'
-    AAlist, Statelist, datadict = threelineparser(data_file, 'fulloutput.csv')
+    AAlist, Statelist = opener('../Datasets/testfilesize50.txt')
     SVMscript1()

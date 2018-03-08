@@ -14,7 +14,7 @@ from sklearn.externals import joblib
 
 
 
-def threelineparser(filename, outputfilename):
+def threelineparser(filename):
     file1 = open(filename, 'r')
     datadict = dict()
     AAlist = []
@@ -35,7 +35,7 @@ def threelineparser(filename, outputfilename):
     #df = pd.DataFrame.from_dict(data=datadict, orient='index')
     print(AAcount)
     file1.close()
-    return AAlist, Statelist, datadict
+    return AAlist, Statelist
 
     
 
@@ -143,7 +143,7 @@ def SVMscript(E_seq, E_state, cvfold, filename):
 
 if __name__ == "__main__":
     data_file = '../Datasets/testfilesize50.txt'
-    AAlist, Statelist, datadict = threelineparser(data_file, 'fulloutput.csv')
+    AAlist, Statelist, datadict = threelineparser(data_file)
     #print(len(AAlist), len(Statelist), len(datadict))
     encoded_seq, encoded_state = windowmaker_encoder(AAlist, Statelist, 9)
     print(SVMscript(encoded_seq, encoded_state, 3, '../Datasets/output_full.pkl'))
