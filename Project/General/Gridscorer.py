@@ -7,6 +7,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import cross_val_predict
 from sklearn.model_selection import KFold
+from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix
 from sklearn.externals import joblib
@@ -118,16 +119,16 @@ def SVMscript(E_seq, E_state, cvfold, filename):
     AA_array = np.array(E_seq)
     state_array = np.array(E_state)
     x, y = AA_array, state_array
-    for win_len in range(7, 9, 11, 15):
-    	X_train, Y_train = AA_array, state_array
-		C_range = [1, 5, 10]
-		g_range = [0.001, 0.01]
-		param = {'C' : C_range, 'gamma' = g_range}
-    	clf = GridSearchCV(svc, parameters, n_job=-1, cv=3, verbose=2, error_score=np.NaN, return_train_score=False)
-		clf.fit(X_train, Y_train)
-		df = pd.DataFrame(clf.cv_results)
-		filename = str(win_len) + '.csv'
-		df.to_csv(filename, sep='/t', encoding='UTF-8'
+    for win_len in range(7, 9, 15):
+        X_train, Y_train = AA_array, state_array
+        C_range = [1, 5, 10]
+        g_range = [0.001, 0.01]
+        param = {'C' : C_range, 'gamma' : g_range}
+        clf = GridSearchCV(svc, parameters, n_job=-1, cv=3, verbose=2, error_score=np.NaN, return_train_score=False)
+        clf.fit(X_train, Y_train)
+        df = pd.DataFrame(clf.cv_results)
+        filename = str(win_len) + '.csv'
+        df.to_csv(filename, sep='/t', encoding='UTF-8')
     
     
     
@@ -139,4 +140,4 @@ if __name__ == "__main__":
     AAlist, Statelist, datadict = threelineparser(data_file, 'fulloutput.csv')
     #print(len(AAlist), len(Statelist), len(datadict))
     encoded_seq, encoded_state = windowmaker_encoder(AAlist, Statelist, 9)
-    print(SVMscript(encoded_seq, encoded_state, 3, '../Datasets/output_full.pkl'))
+    SVMscript(encoded_seq, encoded_state, 3, '../Datasets/output_full.pkl')
