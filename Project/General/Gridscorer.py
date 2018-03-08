@@ -126,9 +126,9 @@ def SVMscript(E_seq, E_state, cvfold, filename):
         param = {'C' : C_range, 'gamma' : g_range}
         clf = GridSearchCV(SVC(), param, n_jobs=1, cv=3, verbose=2, error_score=np.NaN, return_train_score=False)
         clf.fit(X_train, Y_train)
-        df = pd.DataFrame(clf.cv_results)
+        df = pd.DataFrame(clf.cv_results_)
         filename = str(win_len) + '.csv'
-        df.to_csv(filename, sep='/t', encoding='UTF-8')
+        df.to_csv(filename, sep='\t', encoding='UTF-8')
     
     
     
