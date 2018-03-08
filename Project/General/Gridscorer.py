@@ -119,7 +119,7 @@ def SVMscript(E_seq, E_state, cvfold, filename):
     AA_array = np.array(E_seq)
     state_array = np.array(E_state)
     x, y = AA_array, state_array
-    for win_len in range(7, 9, 15):
+    for win_len in range(7, 15, 2):
         X_train, Y_train = AA_array, state_array
         C_range = [1, 5, 10]
         g_range = [0.001, 0.01]
