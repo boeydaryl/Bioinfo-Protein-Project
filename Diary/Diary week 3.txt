@@ -44,6 +44,10 @@ In order to include PSSM data in the model, PSI-BLAST should be performed on eac
 
 Completed the predictor using a model fitted for testsize50.txt, which parses a text file with multiple proteins and prints the output in the format specified yesterday. To update readme with instructions to use predictor, as well as update predictor and model training scripts to use relative directories instead of hard-coded directories.
 
-To perform more metric scoring of the cross-valuation of the model using the size50 dataset. By specifying functions in the cross_val_score function, CVS returns scores of the test. Metrics to collect for classification include accuracy, average-precision, and a confusion matrix (good for presenting the accuracy of a classifier for 2 or more classes).
+To perform more metric scoring (https://machinelearningmastery.com/machine-learning-in-python-step-by-step/) of the cross-valuation of the model using the size50 dataset. By specifying functions in the cross_val_score function, CVS returns scores of the test. Metrics to collect for classification include accuracy, average-precision, and a confusion matrix (good for presenting the accuracy of a classifier for 2 or more classes). Running an average_precision test for the testsize50 file gave a score of 0.78. Generating a confusion_matrix in SVMPredict.py returned the following matrix:
+
+[[3988 2042]
+ [2243 5353]]
+
 
 Did more reading about optimisation of parameters used in fitting the model; C refers to the penalty C, kernel specifies the kernel to be used in separating the data (linear by default), while gamma specifies the sensitivity of the kernel to the differences in feature values. All these parameters are data-specific, and can be optimised using functions such as grid_search.

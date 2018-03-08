@@ -5,7 +5,10 @@ from sklearn.svm import SVC
 from numpy import array
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import cross_val_predict
 from sklearn.model_selection import KFold
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import confusion_matrix
 from sklearn.externals import joblib
 
 
@@ -121,12 +124,16 @@ def SVMscript(E_seq, E_state, cvfold, filename):
     clf = SVC(gamma =0.001, kernel = 'linear', C=1.0)
     #print(clf)
     #print(x.shape, y.shape)
-    #scores = cross_val_score(clf, x, y , cv=cvfold)
+    scores = cross_val_score(clf, x, y , cv=cvfold, scoring='average_precision')
+    #print(scores)
     #average_score = np.average(scores)
-    model = clf.fit(x, y)
+    y_predicted = cross_val_predict(clf, x, y, cv=cvfold)
+    #conf_matrix = confusion_matrix(y, y_predicted)
+    #print(conf_matrix)
+    #model = clf.fit(x, y)
     #print(scores)
     #print(average_score)
-    joblib.dump(model, filename)
+    #joblib.dump(model, filename)
     #return average_score
     
     
