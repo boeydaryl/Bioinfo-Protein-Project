@@ -132,5 +132,5 @@ def SVMTest(model, E_seq, Seq_len, header_list, seq_list):
     #assert len(Topo) == AAlen
         
 if __name__ == "__main__":
-    encoded_seq, seq_len, header_list, seq_list = Parser('/Users/daryl/Documents/Bioinfo-Protein-Project/Project/Datasets/5W0P_A.fasta.txt', 9)
-    SVMTest('output.pkl', encoded_seq, seq_len, header_list, seq_list)
+    encoded_seq, seq_len, header_list, seq_list = Parser('../Datasets/5W0P_A.fasta.txt', 9)
+    SVMTest('../Datasets/output.pkl', encoded_seq, seq_len, header_list, seq_list)

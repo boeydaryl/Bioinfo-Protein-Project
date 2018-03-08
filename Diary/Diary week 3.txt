@@ -36,6 +36,6 @@ Trying to optimise predictor to parse and make predictions for multiple entries 
 
 2018 8 Mar
 
-To parse FASTA files, consider using Biopython. Biopython is also useful for connecting to NCBI servers for BLAST functions.
+To parse FASTA files, consider using Biopython. Biopython is also useful for connecting to NCBI servers for BLAST functions such as PSI-BLAST for PSSM scoring.
 
-Completed the predictor using a model fitted for testsize50.txt, which parses a text file with multiple proteins and prints the output in the format specified yesterday.
+Completed the predictor using a model fitted for testsize50.txt, which parses a text file with multiple proteins and prints the output in the format specified yesterday. To update readme with instructions to use predictor, as well as update predictor and model training scripts to use relative directories instead of hard-coded directories.
