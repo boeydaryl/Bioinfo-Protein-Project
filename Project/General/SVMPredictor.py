@@ -10,19 +10,22 @@ from sklearn.externals import joblib
 
 def Parser(testfilename, windowsize):
     file1 = open(testfilename, 'r')
-    AAList = []
-    Processed_AAList = []
+    seq_list = []
+    header_list = []
     encoded_seq = []
-    #print(file1)
+    seq_len = []
     for x in file1:
         if '>' in x:
-            print(x)
-        if '>' not in x:
-            AAList.extend(x.replace('\n', ''))
-            CombinedAA = ''.join(AAList)
-    Processed_AAList.append(CombinedAA)
-    print(CombinedAA)
-    AAlen = len(CombinedAA)
+            header_list.append(x)
+            #print(x)
+        elif '>' not in x and x.isupper():
+            #print(x)
+            seq_list.append(x.replace('\n', ''))
+    #print(seq_list)
+    for x in seq_list:
+        seq_len.append(len(x))
+    #print(seq_len)
+    #AAlen = len(seq)
     AADict = {
     'A':[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
     'R':[0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
@@ -47,26 +50,27 @@ def Parser(testfilename, windowsize):
     'B':[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
     #Create sliding windows of same dimensions as SVMInput
     pad = windowsize//2
-    for AA in range(0, len(CombinedAA)):
+    for seq in seq_list:
         windowlist = []
         #print(seq)
         #print(len(seq))
-        if AA <= 0:
-            seq_window = CombinedAA[(AA):(AA+pad+1)]
-            seq_window = (windowsize-len(seq_window))*'B'+ seq_window
-            windowlist.append(seq_window)
-        elif AA > 0 and AA < pad:
-            seq_window2 = CombinedAA[0:(AA+pad+1)]
-            seq_window2 = (windowsize-len(seq_window2))*'B'+ seq_window2
-            windowlist.append(seq_window2)
-        elif AA >= pad:
-            seq_window3 = CombinedAA[(AA-pad):(AA+pad+1)]
-            if len(seq_window3) == windowsize:
-                windowlist.append(seq_window3)
-            if len(seq_window3) < windowsize:
-                seq_window3 = seq_window3 + (windowsize-len(seq_window3))*'B'
-                #print(seq_window3)
-                windowlist.append(seq_window3)
+        for AA in range(0, len(seq)):
+            if AA <= 0:
+                seq_window = seq[(AA):(AA+pad+1)]
+                seq_window = (windowsize-len(seq_window))*'B'+ seq_window
+                windowlist.append(seq_window)
+            elif AA > 0 and AA < pad:
+                seq_window2 = seq[0:(AA+pad+1)]
+                seq_window2 = (windowsize-len(seq_window2))*'B'+ seq_window2
+                windowlist.append(seq_window2)
+            elif AA >= pad:
+                seq_window3 = seq[(AA-pad):(AA+pad+1)]
+                if len(seq_window3) == windowsize:
+                    windowlist.append(seq_window3)
+                if len(seq_window3) < windowsize:
+                    seq_window3 = seq_window3 + (windowsize-len(seq_window3))*'B'
+                    #print(seq_window3)
+                    windowlist.append(seq_window3)
         #print(windowlist)
         for frame in windowlist:
             frame_list = [] #Combined vector for each window
@@ -77,26 +81,56 @@ def Parser(testfilename, windowsize):
             assert len(frame_list) == windowsize*20
             encoded_seq.append(frame_list)
     #print(encoded_seq)
-    return encoded_seq, AAlen
+    return encoded_seq, seq_len, header_list, seq_list
         
-def SVMTest(model, E_seq, AAlen):
+def SVMTest(model, E_seq, Seq_len, header_list, seq_list):
     StateDict = {0:'e', 1:'b'}
-    Top = []
+    Topo = []
+    TopoList = []
+    Corrected_seq_len = []
     clf = joblib.load(model)
     AA_array = np.array(E_seq)
     #print(AA_array.shape)
     #print(AAlen)
-    assert AAlen == AA_array.shape[0]
+    #assert AAlen == AA_array.shape[0]
     predicted = clf.predict(AA_array)
     #print(predicted)
     for x in predicted:
         if x in StateDict.keys():
             x = StateDict[x]
-            Top.append(x)
-    print(''.join(Top))
-    assert len(Top) == AAlen
-
+            Topo.append(x)
+    #print(Top[0:906])
+    #for loop to extract states based on sequence length
+    bigsum = 0
+    for n in seq_len:
+        bigsum += n
+        Corrected_seq_len.append(bigsum)
+    print(Corrected_seq_len)
+    for n in range(len(Corrected_seq_len)):
+        list1 = []
+        #print(n)
+        if n < 1:
+            x = Topo[0:Corrected_seq_len[0]]
+            #print(x)
+            y = ''.join(x)
+            print(header_list[n])
+            print(seq_list[n])
+            print(y)
+            #list1.append(y)
+            #y = '-'.join(list1)
+        else:
+            x1 = Topo[Corrected_seq_len[n-1]:Corrected_seq_len[n]]
+            #list1.append(x1)
+            y = ''.join(x1)
+            print(header_list[n])
+            print(seq_list[n])
+            print(y)
+        TopoList.append(y)
+            
+    #print(TopoList)
+    #print(''.join(Topo))
+    #assert len(Topo) == AAlen
         
 if __name__ == "__main__":
-    encoded_seq, AAlen = Parser('/Users/daryl/Documents/Bioinfo-Protein-Project/Project/Datasets/5W0P_A.fasta.txt', 9)
-    SVMTest('output_full.pkl', encoded_seq, AAlen)
+    encoded_seq, seq_len, header_list, seq_list = Parser('/Users/daryl/Documents/Bioinfo-Protein-Project/Project/Datasets/5W0P_A.fasta.txt', 9)
+    SVMTest('output.pkl', encoded_seq, seq_len, header_list, seq_list)

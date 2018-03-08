@@ -31,3 +31,11 @@ Seq
 Topo
 
 Trained model output_full.pkl is extremely large, 113MB, and cannot be pushed to github. A solution is to train the model on a partial part of the dataset instead. As such a short script "State_counter.py" was written to count the ratio of exposed/buried in parts of the dataset, to check if there's a significant bias or difference between different parts of the dataset. Testpart1 returned a ratio of 0.827, while testpart2 returned 0.849, and testpart3 0.81. It can be therefore concluded that the ratio of states between various parts of the dataset is fairly consistent, and training using a portion of the dataset may not lead to a less accurate result.
+
+Trying to optimise predictor to parse and make predictions for multiple entries in a single text file (is that necessary?), encountering difficulties with extracting states based on sequence length, as topologies are returned as a single long string.
+
+2018 8 Mar
+
+To parse FASTA files, consider using Biopython. Biopython is also useful for connecting to NCBI servers for BLAST functions.
+
+Completed the predictor using a model fitted for testsize50.txt, which parses a text file with multiple proteins and prints the output in the format specified yesterday.
