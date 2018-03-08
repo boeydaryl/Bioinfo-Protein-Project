@@ -81,6 +81,7 @@ def Parser(testfilename, windowsize):
             assert len(frame_list) == windowsize*20
             encoded_seq.append(frame_list)
     #print(encoded_seq)
+    file1.close()
     return encoded_seq, seq_len, header_list, seq_list
         
 def SVMTest(model, E_seq, Seq_len, header_list, seq_list):
