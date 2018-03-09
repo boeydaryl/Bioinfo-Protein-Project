@@ -22,7 +22,7 @@ def opener(filename):
 
 
 def SVMscript1():
-    for windowsize in range(1, 3, 2):
+    for windowsize in range(7, 27, 2):
         Encoded_seq, Encoded_state = SVMInput.windowmaker_encoder(AAlist, Statelist, windowsize)
         print(Encoded_state)
         AA_array = np.array(Encoded_seq)

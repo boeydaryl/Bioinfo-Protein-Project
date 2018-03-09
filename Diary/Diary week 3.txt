@@ -51,3 +51,8 @@ To perform more metric scoring (https://machinelearningmastery.com/machine-learn
 
 
 Did more reading about optimisation of parameters used in fitting the model; C refers to the penalty C, kernel specifies the kernel to be used in separating the data (linear by default), while gamma specifies the sensitivity of the kernel to the differences in feature values. All these parameters are data-specific, and can be optimised using functions such as grid_search.
+
+2018 9 Mar
+
+Checked with David about the theory of using a subset for the model and training but a larger dataset should always be more accurate. Will proceed to upload the full model on DropBox instead of Git, and perform GridSearch using the full model to optimise parameters as well.
+
