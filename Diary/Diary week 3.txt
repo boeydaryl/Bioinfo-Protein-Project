@@ -54,5 +54,9 @@ Did more reading about optimisation of parameters used in fitting the model; C r
 
 2018 9 Mar
 
-Checked with David about the theory of using a subset for the model and training but a larger dataset should always be more accurate. Will proceed to upload the full model on DropBox instead of Git, and perform GridSearch using the full model to optimise parameters as well.
+Checked with David about the theory of using a subset for the model and training but a larger dataset should always be more accurate. Will consider proceeding to upload the full model on DropBox instead of Git, and perform GridSearch using the full model to optimise parameters as well.
+
+Ran a train test split function in new script Datasplit.py that splits testfilesize50 after encoding, into x_train, x_test, y_train, and y_test. So a cross validation can be performed using this split dataset, for metric tests like Matthews Correlation Coefficient (MCC). Using testfilesize50 and a windowsize of 9 returned an MCC of 0.3652169895631994. What is the significance of this value?
+
+Created a new script called randomforest.py that performs a cross_val_score on the RandomForestClassifier as opposed to SVM.SVC. Using a kfold of 3 to split the dataset, on testfilesize50 and windowsize 9 returns a mean accuracy score of 0.689, and a mean average precision score of 0.77.
 
