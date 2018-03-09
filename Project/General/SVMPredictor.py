@@ -8,6 +8,7 @@ from sklearn.model_selection import KFold
 from sklearn.externals import joblib
 import SVMInput
 
+############# Parser for regular FASTA files###########
 
 def Parser(testfilename):
     file1 = open(testfilename, 'r')
@@ -29,6 +30,7 @@ def Parser(testfilename):
     file1.close()
     return header_list, seq_list, seq_len
     
+############## Window making and Encoding ####################
     
 def Encoder(seq_list, windowsize):
     encoded_seq = []
@@ -88,6 +90,9 @@ def Encoder(seq_list, windowsize):
             encoded_seq.append(frame_list)
     #print(encoded_seq)
     return encoded_seq
+        
+        
+################# SVM Predictor on new sequences#############
         
 def SVMTest(model, E_seq, Seq_len, header_list, seq_list, filename):
     StateDict = {0:'e', 1:'b'}

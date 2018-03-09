@@ -12,7 +12,7 @@ from sklearn.metrics import confusion_matrix
 from sklearn.externals import joblib
 
 
-
+########### Parser#############################
 
 def threelineparser(filename):
     file1 = open(filename, 'r')
@@ -37,7 +37,7 @@ def threelineparser(filename):
     file1.close()
     return AAlist, Statelist
 
-    
+############ Sliding Window and Encoding##########
 
 def windowmaker_encoder(A, S, windowsize):
     encoded_seq = []
@@ -106,6 +106,7 @@ def windowmaker_encoder(A, S, windowsize):
                 encoded_state.extend(StateDict[state])
     return encoded_seq, encoded_state
 
+################# SVM Cross Validator and Model Fitter###########
 
 def SVMscript(E_seq, E_state, cvfold, filename):
     seqcount = 0
@@ -124,15 +125,15 @@ def SVMscript(E_seq, E_state, cvfold, filename):
     clf = SVC(gamma =0.001, kernel = 'linear', C=1.0)
     #print(clf)
     #print(x.shape, y.shape)
-    scores = cross_val_score(clf, x, y , cv=cvfold, scoring='average_precision')
+    scores = cross_val_score(clf, x, y , cv=cvfold, scoring='f1')
     #print(scores)
-    #average_score = np.average(scores)
-    y_predicted = cross_val_predict(clf, x, y, cv=cvfold)
+    average_score = np.average(scores)
+    #y_predicted = cross_val_predict(clf, x, y, cv=cvfold)
     #conf_matrix = confusion_matrix(y, y_predicted)
     #print(conf_matrix)
     #model = clf.fit(x, y)
     #print(scores)
-    #print(average_score)
+    print(average_score)
     #joblib.dump(model, filename)
     #return average_score
     
@@ -143,7 +144,7 @@ def SVMscript(E_seq, E_state, cvfold, filename):
 
 if __name__ == "__main__":
     data_file = '../Datasets/testfilesize50.txt'
-    AAlist, Statelist, datadict = threelineparser(data_file)
+    AAlist, Statelist = threelineparser(data_file)
     #print(len(AAlist), len(Statelist), len(datadict))
     encoded_seq, encoded_state = windowmaker_encoder(AAlist, Statelist, 9)
     print(SVMscript(encoded_seq, encoded_state, 3, '../Datasets/output_full.pkl'))
