@@ -22,9 +22,9 @@ def opener(filename):
 
 
 def SVMscript1():
-    for windowsize in range(7, 27, 2):
+    for windowsize in range(27,41,2):
         Encoded_seq, Encoded_state = SVMInput.windowmaker_encoder(AAlist, Statelist, windowsize)
-        print(Encoded_state)
+        #print(Encoded_state)
         AA_array = np.array(Encoded_seq)
         state_array = np.array(Encoded_state)
         X_train, Y_train = AA_array, state_array
@@ -34,7 +34,7 @@ def SVMscript1():
         clf = GridSearchCV(SVC(), param, n_jobs=1, cv=3, verbose=2, error_score=np.NaN, return_train_score=False)
         clf.fit(X_train, Y_train)
         df = pd.DataFrame(clf.cv_results_)
-        filename = str(windowsize) + '.csv'
+        filename = '../Datasets/' + str(windowsize) + '.csv'
         df.to_csv(filename, sep='\t', encoding='UTF-8')
 
     
