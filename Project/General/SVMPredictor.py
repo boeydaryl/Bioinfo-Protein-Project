@@ -6,13 +6,13 @@ from sklearn.model_selection import train_test_split
 from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import KFold
 from sklearn.externals import joblib
+import SVMInput
 
 
-def Parser(testfilename, windowsize):
+def Parser(testfilename):
     file1 = open(testfilename, 'r')
     seq_list = []
     header_list = []
-    encoded_seq = []
     seq_len = []
     for x in file1:
         if '>' in x:
@@ -26,6 +26,12 @@ def Parser(testfilename, windowsize):
         seq_len.append(len(x))
     #print(seq_len)
     #AAlen = len(seq)
+    file1.close()
+    return header_list, seq_list, seq_len
+    
+    
+def Encoder(seq_list, windowsize):
+    encoded_seq = []
     AADict = {
     'A':[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
     'R':[0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
@@ -81,57 +87,50 @@ def Parser(testfilename, windowsize):
             assert len(frame_list) == windowsize*20
             encoded_seq.append(frame_list)
     #print(encoded_seq)
-    file1.close()
-    return encoded_seq, seq_len, header_list, seq_list
+    return encoded_seq
         
-def SVMTest(model, E_seq, Seq_len, header_list, seq_list):
+def SVMTest(model, E_seq, Seq_len, header_list, seq_list, filename):
     StateDict = {0:'e', 1:'b'}
     Topo = []
     TopoList = []
     Corrected_seq_len = []
     clf = joblib.load(model)
     AA_array = np.array(E_seq)
-    #print(AA_array.shape)
-    #print(AAlen)
-    #assert AAlen == AA_array.shape[0]
     predicted = clf.predict(AA_array)
-    #print(predicted)
     for x in predicted:
         if x in StateDict.keys():
             x = StateDict[x]
             Topo.append(x)
-    #print(Top[0:906])
     #for loop to extract states based on sequence length
     bigsum = 0
+    writefile = open(filename, 'w')
     for n in seq_len:
         bigsum += n
         Corrected_seq_len.append(bigsum)
-    #print(Corrected_seq_len)
     for n in range(len(Corrected_seq_len)):
         list1 = []
-        #print(n)
         if n < 1:
             x = Topo[0:Corrected_seq_len[0]]
-            #print(x)
             y = ''.join(x)
             print(header_list[n])
             print(seq_list[n])
             print(y)
-            #list1.append(y)
-            #y = '-'.join(list1)
+            writefile.write(header_list[n])
+            writefile.write(seq_list[n] + '\n')
+            writefile.write(y + '\n')
         else:
             x1 = Topo[Corrected_seq_len[n-1]:Corrected_seq_len[n]]
-            #list1.append(x1)
             y = ''.join(x1)
             print(header_list[n])
             print(seq_list[n])
             print(y)
+            writefile.write(header_list[n])
+            writefile.write(seq_list[n] + '\n')
+            writefile.write(y + '\n')
         TopoList.append(y)
             
-    #print(TopoList)
-    #print(''.join(Topo))
-    #assert len(Topo) == AAlen
         
 if __name__ == "__main__":
-    encoded_seq, seq_len, header_list, seq_list = Parser('../Datasets/5W0P_A.fasta.txt', 9)
-    SVMTest('../Datasets/output.pkl', encoded_seq, seq_len, header_list, seq_list)
+    header_list, seq_list, seq_len = Parser('../Datasets/5W0P_A.fasta.txt')
+    encoded_seq = Encoder(seq_list, 9)
+    SVMTest('../Datasets/output.pkl', encoded_seq, seq_len, header_list, seq_list, '../Datasets/Predicted')
