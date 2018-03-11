@@ -137,5 +137,5 @@ def SVMTest(model, E_seq, Seq_len, header_list, seq_list, filename):
         
 if __name__ == "__main__":
     header_list, seq_list, seq_len = Parser('../Datasets/5W0P_A.fasta.txt')
-    encoded_seq = Encoder(seq_list, 9)
-    SVMTest('../Datasets/output.pkl', encoded_seq, seq_len, header_list, seq_list, '../Datasets/Predicted')
+    encoded_seq = Encoder(seq_list, 21)
+    SVMTest('../Datasets/output_50.pkl', encoded_seq, seq_len, header_list, seq_list, '../Datasets/Predicted')
