@@ -1,0 +1,6 @@
+Diary week 4
+
+2018 12 Mar
+
+Model is optimised, and F1_score recorded, to consider taking a few more scores to compare the cross-validation before after optimisation.
+

@@ -125,16 +125,16 @@ def SVMscript(E_seq, E_state, cvfold, filename):
     clf = SVC(gamma =0.01, kernel = 'rbf', C=5.0)
     #print(clf)
     #print(x.shape, y.shape)
-    #scores = cross_val_score(clf, x, y , cv=cvfold, scoring='accuracy')
+    #scores = cross_val_score(clf, x, y , cv=cvfold, scoring='f1')
     #print(scores)
     #average_score = np.average(scores)
-    #y_predicted = cross_val_predict(clf, x, y, cv=cvfold)
-    #conf_matrix = confusion_matrix(y, y_predicted)
-    #print(conf_matrix)
-    model = clf.fit(x, y)
+    y_predicted = cross_val_predict(clf, x, y, cv=cvfold)
+    conf_matrix = confusion_matrix(y, y_predicted)
+    print(conf_matrix)
+    #model = clf.fit(x, y)
     #print(scores)
     #print(average_score)
-    joblib.dump(model, filename)
+    #joblib.dump(model, filename)
     #return average_score
     
     

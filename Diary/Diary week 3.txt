@@ -66,4 +66,4 @@ Ran another round of cross_val_score with the same old parameters(not yet optimi
 
 Found the optimum parameters for the model using GridSearchCV, with windowsize 21, C=5, gamma=0.01, and kernel=rbf.
 
-To compare the f1_score between the old parameters and new parameters.
+To compare the f1_score between the old parameters and new parameters. The mean F1_score for the new parameters is 0.737. The mean f1_score for the old parameters was 0.714. 
