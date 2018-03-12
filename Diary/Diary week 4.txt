@@ -12,7 +12,7 @@ Add evolutionary information by running psi-blast and extracting the information
 Use simple decision tree and compare the performance with the SVM performance.
 Extract the data from 50 other proteins (new sequences with topologies! from PDB?) and test the performance (validate predicted against true topology). Source of dataset->old publications.
 
-To improve code by allowing input via the command line instead of hard coding it in the python script.
+To improve code by allowing input via the command line instead of hard coding it in the python script. Joblib is not the best way to store the model, it may be better to use pickle instead to save the model.
 
 Calculate comparison for MattCorr between new and old models.
 
