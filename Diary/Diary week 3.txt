@@ -60,4 +60,10 @@ Ran a train test split function in new script Datasplit.py that splits testfiles
 
 Created a new script called randomforest.py that performs a cross_val_score on the RandomForestClassifier as opposed to SVM.SVC. Using a kfold of 3 to split the dataset, on testfilesize50 and windowsize 9 returns a mean accuracy score of 0.689, and a mean average precision score of 0.77.
 
-Ran another round of cross_val_score with the same old parameters(not yet optimised)(windowsize9, testfilesize50, gamma=0.001, linear kernel, c=1), which returned a mean f1_score of 0.714. 
+Ran another round of cross_val_score with the same old parameters(not yet optimised)(windowsize9, testfilesize50, gamma=0.001, linear kernel, c=1), which returned a mean f1_score of 0.714.
+
+2018 11 Mar
+
+Found the optimum parameters for the model using GridSearchCV, with windowsize 21, C=5, gamma=0.01, and kernel=rbf.
+
+To compare the f1_score between the old parameters and new parameters.
