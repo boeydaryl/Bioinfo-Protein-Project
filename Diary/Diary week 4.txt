@@ -10,6 +10,10 @@ Remaining tasks:
 
 Add evolutionary information by running psi-blast and extracting the information
 Use simple decision tree and compare the performance with the SVM performance.
-Extract the data from 50 other proteins (new sequences with topologies! from PDB?) and test the performance (validate predicted against true topology).
+Extract the data from 50 other proteins (new sequences with topologies! from PDB?) and test the performance (validate predicted against true topology). Source of dataset->old publications.
 
 To improve code by allowing input via the command line instead of hard coding it in the python script.
+
+Calculate comparison for MattCorr between new and old models.
+
+Wrote a simple python script FASTAParser.py to parse the dataset into individual FASTA files per sequence, as preparation for input to PSI-BLAST. Wrote a bash script PSSMBash.sh to iterate through all FASTA text files in the previously parsed FASTA directory to run a PSI-BLAST (e-value=0.01, iterations=3) to output to an ASCII format .pssm file for each sequence, using the SWISSPROT database.
