@@ -4,3 +4,12 @@ Diary week 4
 
 Model is optimised, and F1_score recorded, to consider taking a few more scores to compare the cross-validation before after optimisation.
 
+Final code due on Friday; the readme is supposed to have clear instructions as to how to run the scripts. Important to have finished all the tasks in stated in the website to earn a grade of 'C' or higher.
+
+Remaining tasks:
+
+Add evolutionary information by running psi-blast and extracting the information
+Use simple decision tree and compare the performance with the SVM performance.
+Extract the data from 50 other proteins (new sequences with topologies! from PDB?) and test the performance (validate predicted against true topology).
+
+To improve code by allowing input via the command line instead of hard coding it in the python script.
