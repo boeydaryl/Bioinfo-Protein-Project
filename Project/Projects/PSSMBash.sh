@@ -1,6 +1,6 @@
 #PSSM Bash script
 
-cd ../Datasets/FASTA/
+cd ../Datasets/FASTA_new/
 
 for element in *.txt
 
