@@ -17,3 +17,9 @@ To improve code by allowing input via the command line instead of hard coding it
 Calculate comparison for MattCorr between new and old models.
 
 Wrote a simple python script FASTAParser.py to parse the dataset into individual FASTA files per sequence, as preparation for input to PSI-BLAST. Wrote a bash script PSSMBash.sh to iterate through all FASTA text files in the previously parsed FASTA directory to run a PSI-BLAST (e-value=0.01, iterations=3) to output to an ASCII format .pssm file for each sequence, using the SWISSPROT database.
+
+2018 13 Mar
+
+Writing new script PSSMParser.py to parse individual PSSM files, while saving the header ID. This header ID is subsequently used to call the corresponding topology from the original dataset, with both header and ID saved to lists in corresponding order. This will allow the generation of a list of vectors per sequence with corresponding topologies.
+
+The tricky part of this code will be running through all PSSM files in the folder and compiling each list of vectors and topologies to a single final array to be fed to SVM.
