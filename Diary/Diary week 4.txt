@@ -14,7 +14,7 @@ Extract the data from 50 other proteins (new sequences with topologies! from PDB
 
 To improve code by allowing input via the command line instead of hard coding it in the python script. Joblib is not the best way to store the model, it may be better to use pickle instead to save the model.
 
-Calculate comparison for MattCorr between new and old models.
+Calculate comparison for MattCorr between new and old models: MattCorr for optimised model is 0.4135, and 0.3689 for the non-optimised model.
 
 Wrote a simple python script FASTAParser.py to parse the dataset into individual FASTA files per sequence, as preparation for input to PSI-BLAST. Wrote a bash script PSSMBash.sh to iterate through all FASTA text files in the previously parsed FASTA directory to run a PSI-BLAST (e-value=0.01, iterations=3) to output to an ASCII format .pssm file for each sequence, using the SWISSPROT database.
 
