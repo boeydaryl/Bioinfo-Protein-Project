@@ -138,8 +138,50 @@ def SVMTest(model, E_seq, Seq_len, header_list, seq_list, filename):
             writefile.write(y + '\n')
         TopoList.append(y)
             
+############# Predicted File Output ##############
+
+def Pred_Output(seq_len, header_list, seq_list, predicted, filename):
+    StateDict = {0:'e', 1:'b'}
+    Topo = []
+    TopoList = []
+    Corrected_seq_len = []
+    for x in predicted:
+        if x in StateDict.keys():
+            x = StateDict[x]
+            Topo.append(x)
+    #for loop to extract states based on sequence length
+    bigsum = 0
+    writefile = open(filename, 'w')
+    for n in seq_len:
+        bigsum += n
+        Corrected_seq_len.append(bigsum)
+    for n in range(len(Corrected_seq_len)):
+        list1 = []
+        if n < 1:
+            x = Topo[0:Corrected_seq_len[0]]
+            y = ''.join(x)
+            print(header_list[n])
+            print(seq_list[n])
+            print(y)
+            writefile.write(header_list[n])
+            writefile.write(seq_list[n] + '\n')
+            writefile.write(y + '\n')
+        else:
+            x1 = Topo[Corrected_seq_len[n-1]:Corrected_seq_len[n]]
+            y = ''.join(x1)
+            print(header_list[n])
+            print(seq_list[n])
+            print(y)
+            writefile.write(header_list[n])
+            writefile.write(seq_list[n] + '\n')
+            writefile.write(y + '\n')
+        TopoList.append(y)
+        
+        
+        
+        
         
 if __name__ == "__main__":
     header_list, seq_list, top_list, seq_len = Parser('../Datasets/50Extra.txt')
-    #encoded_seq = Encoder(seq_list, 21)
-    #SVMTest('../Datasets/output_50.pkl', encoded_seq, seq_len, header_list, seq_list, '../Datasets/Predicted')
+    encoded_seq = Encoder(seq_list, 21)
+    SVMTest('../Datasets/output_50.pkl', encoded_seq, seq_len, header_list, seq_list, '../Datasets/Predicted')

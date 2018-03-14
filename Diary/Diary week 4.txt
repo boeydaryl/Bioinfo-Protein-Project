@@ -60,4 +60,4 @@ Confusion matrix for fully trained PSSM model:
 
 To transfer all the relevant metrics to a spreadsheet for easy comparison and referral.
 
-To implement an output for FinalPredictor.py, to write the predicted states to a separate file. 
+Implemented an output for FinalPredictor.py, to write the predicted states to a separate file, along with original ID and sequence information. 
