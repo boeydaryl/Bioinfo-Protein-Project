@@ -15,6 +15,7 @@ def Parser(testfilename):
     seq_list = []
     header_list = []
     seq_len = []
+    top_list = []
     for x in file1:
         if '>' in x:
             header_list.append(x)
@@ -22,13 +23,16 @@ def Parser(testfilename):
         elif '>' not in x and x.isupper():
             #print(x)
             seq_list.append(x.replace('\n', ''))
+        elif '>' not in x and x.islower():
+            top_list.append(x.replace('\n', ''))
     #print(seq_list)
     for x in seq_list:
         seq_len.append(len(x))
+    #print(top_list)
     #print(seq_len)
     #AAlen = len(seq)
     file1.close()
-    return header_list, seq_list, seq_len
+    return header_list, seq_list, top_list, seq_len
     
 ############## Window making and Encoding ####################
     
@@ -136,6 +140,6 @@ def SVMTest(model, E_seq, Seq_len, header_list, seq_list, filename):
             
         
 if __name__ == "__main__":
-    header_list, seq_list, seq_len = Parser('../Datasets/5W0P_A.fasta.txt')
-    encoded_seq = Encoder(seq_list, 21)
-    SVMTest('../Datasets/output_50.pkl', encoded_seq, seq_len, header_list, seq_list, '../Datasets/Predicted')
+    header_list, seq_list, top_list, seq_len = Parser('../Datasets/50Extra.txt')
+    #encoded_seq = Encoder(seq_list, 21)
+    #SVMTest('../Datasets/output_50.pkl', encoded_seq, seq_len, header_list, seq_list, '../Datasets/Predicted')

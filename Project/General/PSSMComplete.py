@@ -22,7 +22,7 @@ def generator(filename):
     #print(listoftopo)
     return listofheaders,listoftopo
     
-def PSSMcaller():
+def PSSMcaller(listofheaders):
     listoffiles = []
     listofarrays = []
     for headers in listofheaders:
@@ -35,7 +35,7 @@ def PSSMcaller():
     return listofarrays
     
     
-def PSSMwindowmaker(windowsize):
+def PSSMwindowmaker(windowsize, listofarrays):
     multiseqwinlist = []
     padding = windowsize//2
     pad = np.asarray([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])
@@ -129,21 +129,27 @@ def PSSM_split():
 
 def PSSM_others():
     x, y = windowarray, statearray
-    #clf = tree.DecisionTreeClassifier(random_state=10)
-    clf = RandomForestClassifier(random_state=10)
+    clf = tree.DecisionTreeClassifier(random_state=10)
+    #clf = RandomForestClassifier(random_state=10)
     #x_train, x_test, y_train, y_test = train_test_split(x, y , test_size=0.33, random_state=10)
     #clf = clf.fit(x, y_train)
     #y_predict = clf.predict(x_test)
     scores = cross_val_score(clf, x, y, cv=3, scoring = 'f1')
     meanscores = np.mean(scores)
     print(meanscores)
-
+    
+def PSSM_model(outputfilename):
+    x, y = windowarray, statearray
+    clf = SVC(gamma = 0.01, C = 5.0, kernel = 'rbf')
+    PSSM_model = clf.fit(x, y)
+    joblib.dump(PSSM_model, outputfilename)
     
 if __name__ == '__main__':
     listofheaders, listoftopo = generator('../Datasets/testfilesize50.txt')
-    listofarrays = PSSMcaller()
-    windowarray = PSSMwindowmaker(21)
+    listofarrays = PSSMcaller(listofheaders)
+    windowarray = PSSMwindowmaker(21, listofarrays)
     statearray = Topowindowmaker(21)
     #PSSM_SVM(3)
     #PSSM_split()
     PSSM_others()
+    #PSSM_model('../Datasets/PSSMoutput.pkl')
