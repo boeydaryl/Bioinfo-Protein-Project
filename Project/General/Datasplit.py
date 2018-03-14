@@ -59,6 +59,6 @@ def RandomForest(windowsize):
 
 if __name__ == '__main__':
     AAList, StateList = extractor('../Datasets/testfilesize50.txt')
-    x, y = datasplit(21)
-    #decisiontree(21)
-    RandomForest(21)
+    x, y = datasplit(9)
+    decisiontree(9)
+    RandomForest(9)

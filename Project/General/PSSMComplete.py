@@ -110,12 +110,12 @@ def PSSM_SVM(cvfold):
     x, y = windowarray, statearray
     print(x.shape)
     clf = SVC(gamma = 0.01, C = 5.0, kernel = 'rbf')
-    #scores = cross_val_score(clf, x, y, cv=cvfold, scoring='f1')
-    #mean_scores = np.mean(scores)
-    #print(mean_scores)
-    y_predicted = cross_val_predict(clf, x, y, cv=cvfold)
-    conf_matrix = confusion_matrix(y, y_predicted)
-    print(conf_matrix)
+    scores = cross_val_score(clf, x, y, cv=cvfold, scoring='Accuracy')
+    mean_scores = np.mean(scores)
+    print(mean_scores)
+    #y_predicted = cross_val_predict(clf, x, y, cv=cvfold)
+    #conf_matrix = confusion_matrix(y, y_predicted)
+    #print(conf_matrix)
     
     
 def PSSM_split():

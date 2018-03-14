@@ -10,7 +10,9 @@ from sklearn.metrics import confusion_matrix
 from sklearn.metrics import matthews_corrcoef
 from sklearn.metrics import f1_score
 from sklearn.metrics import accuracy_score
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.externals import joblib
+from sklearn import tree
 import SVMInput
 import SVMPredictor
 import PSSMComplete
@@ -83,7 +85,28 @@ def PSSM_Model(model, encoded_state):
     filename = '../Datasets/Predicted/' + 'PSSM_Model.txt'
     SVMPredictor.Pred_Output(seq_len, header_list, AAList, predicted, filename)
     
+######## Other Classifiers######
+def Random_Forest(encoded_state):
+    #x = windowarray
+    x = encoded_seq
+    y = np.array(encoded_state)
+    seed = 10
+    trees = 100
+    kfold = KFold(n_splits=3, random_state=seed)
+    clf = RandomForestClassifier(n_estimators=trees, max_features=3)
+    RFResults = cross_val_score(clf, x, y, cv=kfold, scoring='f1')
+    mean_RFResults = RFResults.mean()
+    print(mean_RFResults)
     
+def Dec_Tree(encoded_state):
+    #x = windowarray
+    x = encoded_seq
+    y = np.array(encoded_state)
+    clf = tree.DecisionTreeClassifier(random_state=10)
+    scores = cross_val_score(clf, x, y, cv=3, scoring = 'f1')
+    meanscores = np.mean(scores)
+    print(meanscores)
+      
 if __name__ == '__main__':
     header_list, AAList, Statelist, seq_len = Parser('../Datasets/50Extra.txt')
     encoded_seq, encoded_state = WindowMaker(AAList, Statelist, 21)
@@ -91,6 +114,8 @@ if __name__ == '__main__':
     listofheaders, listoftopo = generator('../Datasets/50Extra.txt')
     listofarrays = PSSMCaller(listofheaders)
     windowarray = PSSMWindow(21, listofarrays)
-    PSSM_Model('../Datasets/PSSMoutput.pkl', encoded_state)
+    #PSSM_Model('../Datasets/PSSMoutput.pkl', encoded_state)
+    #Random_Forest(encoded_state)
+    Dec_Tree(encoded_state)
     #filename = sys.argv[1]
     
