@@ -47,3 +47,17 @@ Testing the final trained model with new data, possible analysis of data include
 Results returned for the AA seq model are accuracy of 0.705 and f1 score of 0.702, and for the PSSM model accuracy of 0.735, and f1 score of 0.734.
 
 Testing the final trained AAseq model with 50Extra.txt returns an MCC of 0.405, and for the PSSM model 0.468. 
+
+Confusion matrix for fully trained AA seq model:
+
+[[4289 1987]
+ [2169 5652]]
+
+Confusion matrix for fully trained PSSM model:
+
+[[4616 1660]
+ [2068 5753]]
+
+To transfer all the relevant metrics to a spreadsheet for easy comparison and referral.
+
+To implement an output for FinalPredictor.py, to write the predicted states to a separate file. 

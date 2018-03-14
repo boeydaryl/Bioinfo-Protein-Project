@@ -14,6 +14,7 @@ from sklearn.externals import joblib
 import SVMInput
 import SVMPredictor
 import PSSMComplete
+import sys
 
 #Final Predictor Script
 
@@ -33,11 +34,13 @@ def AA_Seq_Model(model, encoded_seq, encoded_state):
     x, y = encoded_seq, encoded_state
     y_predict = clf.predict(x)
     #print(y_predict)
-    MatCorr = matthews_corrcoef(y, y_predict)
-    print(MatCorr)
+    #MatCorr = matthews_corrcoef(y, y_predict)
+    #print(MatCorr)
     #accuracy = accuracy_score(y, y_predict)
     #f1score = f1_score(y, y_predict, average = 'macro')
     #print('Accuracy = ' + str(accuracy), 'F1_score = ' + str(f1score))
+    conf_matrix = confusion_matrix(y, y_predict)
+    print(conf_matrix)
     
 
 ########### PSSM Parser ##########
@@ -61,16 +64,18 @@ def PSSMWindow(windowsize, listofarrays):
     return windowarray
     
 ######## PSSM Model #############
-def PSSM_Model(model, encoded_seq, encoded_state):
+def PSSM_Model(model, encoded_state):
     clf = joblib.load(model)
     x = windowarray
     y = np.array(encoded_state)
     y_predict = clf.predict(x)
-    MatCorr = matthews_corrcoef(y, y_predict)
-    print(MatCorr)
+    #MatCorr = matthews_corrcoef(y, y_predict)
+    #print(MatCorr)
     #accuracy = accuracy_score(y, y_predict)
     #f1score = f1_score(y, y_predict, average = 'macro')
     #print('Accuracy = ' + str(accuracy), 'F1_score = ' + str(f1score))
+    conf_matrix = confusion_matrix(y, y_predict)
+    print(conf_matrix)
     
     
 if __name__ == '__main__':
@@ -80,4 +85,6 @@ if __name__ == '__main__':
     listofheaders, listoftopo = generator('../Datasets/50Extra.txt')
     listofarrays = PSSMCaller(listofheaders)
     windowarray = PSSMWindow(21, listofarrays)
-    PSSM_Model('../Datasets/PSSMoutput.pkl', encoded_seq, encoded_state)
+    PSSM_Model('../Datasets/PSSMoutput.pkl', encoded_state)
+    #filename = sys.argv[1]
+    
