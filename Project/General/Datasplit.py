@@ -25,7 +25,7 @@ def datasplit(windowsize):
     y = np.array(e_state)
     x_train, x_test, y_train, y_test = train_test_split(x, y , test_size=0.33, random_state=10)
     #print(y_train)
-    clf = SVC(C=1, gamma=0.001, kernel='linear')
+    clf = SVC(C=5, gamma=0.01, kernel='rbf')
     clf.fit(x_train, y_train)
     y_predicted = clf.predict(x_test)
     #print(y_predicted)
@@ -38,4 +38,4 @@ def datasplit(windowsize):
 
 if __name__ == '__main__':
     AAList, StateList = extractor('../Datasets/testfilesize50.txt')
-    datasplit(9)
+    datasplit(21)

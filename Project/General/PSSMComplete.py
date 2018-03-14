@@ -2,6 +2,18 @@
 
 import numpy as np
 import PSSMParser
+from sklearn import svm
+from sklearn.svm import SVC
+from numpy import array
+from sklearn.model_selection import train_test_split
+from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import cross_val_predict
+from sklearn.model_selection import KFold
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import matthews_corrcoef
+from sklearn.externals import joblib
+
 
 def generator(filename):
     listofheaders, listoftopo = PSSMParser.ID_topo_caller(filename)
@@ -21,14 +33,14 @@ def PSSMcaller():
     return listofarrays
     
     
-def windowmaker(windowsize):
+def PSSMwindowmaker(windowsize):
     multiseqwinlist = []
     padding = windowsize//2
     pad = np.asarray([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])
     #print(len(pad))
     for seq in listofarrays:
         windowlist = []
-        print(len(seq))
+        #print(len(seq))
         for v in range(0, len(seq)):
             x_window =[]
             #print(seq[v])
@@ -76,11 +88,47 @@ def windowmaker(windowsize):
         multiseqwinlist.extend(windowlist)
     #print(windowlist)
     windowarray = np.array(multiseqwinlist)
-    print(windowarray.shape)
+    #print(windowarray.shape)
     #print(len(multiseqwinlist))
+    return windowarray
     
+def Topowindowmaker(windowsize):
+    TopoDict = {'e': [0], 'b': [1]}
+    statelist = []
+    print(len(listoftopo))
+    for states in listoftopo:
+        for state in states:
+            if state in TopoDict.keys():
+                statelist.extend(TopoDict[state])
+    statearray = np.array(statelist)
+    #print(statearray.shape)
+    return statearray
+    
+def PSSM_SVM(cvfold):
+    x, y = windowarray, statearray
+    print(x.shape)
+    clf = SVC(gamma = 0.01, C = 5.0, kernel = 'rbf')
+    #scores = cross_val_score(clf, x, y, cv=cvfold, scoring='f1')
+    #mean_scores = np.mean(scores)
+    #print(mean_scores)
+    y_predicted = cross_val_predict(clf, x, y, cv=cvfold)
+    conf_matrix = confusion_matrix(y, y_predicted)
+    print(conf_matrix)
+    
+    
+def PSSM_split():
+    x, y = windowarray,statearray
+    x_train, x_test, y_train, y_test = train_test_split(x, y , test_size=0.33, random_state=10)
+    clf = SVC(gamma = 0.01, C = 5.0, kernel = 'rbf')
+    clf.fit(x_train, y_train)
+    y_predicted = clf.predict(x_test)
+    MatCorr = matthews_corrcoef(y_test, y_predicted)
+    print(MatCorr)
     
 if __name__ == '__main__':
-    listofheaders, listoftopo = generator('../Datasets/testfile3.txt')
+    listofheaders, listoftopo = generator('../Datasets/testfilesize50.txt')
     listofarrays = PSSMcaller()
-    windowmaker(21)
+    windowarray = PSSMwindowmaker(21)
+    statearray = Topowindowmaker(21)
+    #PSSM_SVM(3)
+    PSSM_split()

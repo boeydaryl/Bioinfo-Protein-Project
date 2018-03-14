@@ -23,3 +23,14 @@ Wrote a simple python script FASTAParser.py to parse the dataset into individual
 Writing new script PSSMParser.py to parse individual PSSM files, while saving the header ID. This header ID is subsequently used to call the corresponding topology from the original dataset, with both header and ID saved to lists in corresponding order. This will allow the generation of a list of vectors per sequence with corresponding topologies.
 
 The tricky part of this code will be running through all PSSM files in the folder and compiling each list of vectors and topologies to a single final array to be fed to SVM.
+
+Using a logical approach to this problem, the dataset was first parsed to return a list of IDs and list of states, followed by which each PSSM file relevant to the IDs was retrieved from the folder and added to a massive list of sliding windows. The appropriate states was also encoded and placed in a list of its own. These 2 lists were then converted to numpy arrays and fed to SVM's SVC. Because of the prior optimisation using GridSearch, the appropriate set of parameters for the dataset have already been determined (windowsize=21, gamma=0.01, C=5, and kernel=rbf). A variety of metrics should now be measured for this model and compared against that of AA sequence model.
+
+Performing a cross_val_score using the above parameters and a 3 fold test, returned a mean f1 score of 0.758 for testfilesize50. This is slightly higher than the optimised AAseq trained model which returned a mean f1 score of 0.737. The confusion matrix for the PSSM model is as follows:
+[[4364 1666]
+ [1941 5655]]
+
+This indicates a total of 3607 false hits as compared to 4030 false hits in the optimised AAseq model, and 4285 for the unoptimised AAseq model.
+
+Running the MCC test using the PSSM sequences with the same parameters gives a score of 0.464, compared to 0.413 for the AAseq model.
+
