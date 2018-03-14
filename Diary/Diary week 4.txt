@@ -34,3 +34,6 @@ This indicates a total of 3607 false hits as compared to 4030 false hits in the 
 
 Running the MCC test using the PSSM sequences with the same parameters gives a score of 0.464, compared to 0.413 for the AAseq model.
 
+2018 14 Mar
+
+Continuing to run analysis using different classifiers, running the simple decision tree classifier on the AAseq model with randomstate=10, cvfold=3, and windowsize=21 returns a mean score of 0.613, and an f1_score of 0.653. Running the decision tree on the PSSM model with the same parameters above returns an f1_score of 0.691. Running the randomforestclassifier using the same parameters and PSSM model returns an f1 score of 0.723, compared to 0.688 for the AAseq model.

@@ -13,6 +13,8 @@ from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import matthews_corrcoef
 from sklearn.externals import joblib
+from sklearn import tree
+from sklearn.ensemble import RandomForestClassifier
 
 
 def generator(filename):
@@ -124,6 +126,18 @@ def PSSM_split():
     y_predicted = clf.predict(x_test)
     MatCorr = matthews_corrcoef(y_test, y_predicted)
     print(MatCorr)
+
+def PSSM_others():
+    x, y = windowarray, statearray
+    #clf = tree.DecisionTreeClassifier(random_state=10)
+    clf = RandomForestClassifier(random_state=10)
+    #x_train, x_test, y_train, y_test = train_test_split(x, y , test_size=0.33, random_state=10)
+    #clf = clf.fit(x, y_train)
+    #y_predict = clf.predict(x_test)
+    scores = cross_val_score(clf, x, y, cv=3, scoring = 'f1')
+    meanscores = np.mean(scores)
+    print(meanscores)
+
     
 if __name__ == '__main__':
     listofheaders, listoftopo = generator('../Datasets/testfilesize50.txt')
@@ -131,4 +145,5 @@ if __name__ == '__main__':
     windowarray = PSSMwindowmaker(21)
     statearray = Topowindowmaker(21)
     #PSSM_SVM(3)
-    PSSM_split()
+    #PSSM_split()
+    PSSM_others()
