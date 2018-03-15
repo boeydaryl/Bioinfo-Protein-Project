@@ -30,7 +30,7 @@ def PSSMcaller(listofheaders):
         listoffiles.append(names)
     #print(listoffiles)
     for name in listoffiles:
-        PSSM_array = (np.genfromtxt('../Datasets/PSSM/' + name, skip_header = 3, skip_footer = 5, usecols = range(22,42), autostrip = True))/100
+        PSSM_array = (np.genfromtxt('../Datasets/50New/PSSM/' + name, skip_header = 3, skip_footer = 5, usecols = range(22,42), autostrip = True))/100
         listofarrays.append(PSSM_array)
     return listofarrays
     
@@ -110,7 +110,7 @@ def PSSM_SVM(cvfold):
     x, y = windowarray, statearray
     print(x.shape)
     clf = SVC(gamma = 0.01, C = 5.0, kernel = 'rbf')
-    scores = cross_val_score(clf, x, y, cv=cvfold, scoring='Accuracy')
+    scores = cross_val_score(clf, x, y, cv=cvfold, scoring='accuracy')
     mean_scores = np.mean(scores)
     print(mean_scores)
     #y_predicted = cross_val_predict(clf, x, y, cv=cvfold)
@@ -145,11 +145,11 @@ def PSSM_model(outputfilename):
     joblib.dump(PSSM_model, outputfilename)
     
 if __name__ == '__main__':
-    listofheaders, listoftopo = generator('../Datasets/testfilesize50.txt')
+    listofheaders, listoftopo = generator('../Datasets/50newproteins.txt')
     listofarrays = PSSMcaller(listofheaders)
     windowarray = PSSMwindowmaker(21, listofarrays)
     statearray = Topowindowmaker(21)
-    #PSSM_SVM(3)
+    PSSM_SVM(3)
     #PSSM_split()
-    PSSM_others()
+    #PSSM_others()
     #PSSM_model('../Datasets/PSSMoutput.pkl')

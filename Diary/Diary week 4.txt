@@ -65,3 +65,5 @@ Implemented an output for FinalPredictor.py, to write the predicted states to a 
 2018 15 Mar
 
 To compare the performance of a more comprehensive model vs the 50 model, a bigger subset of the original dataset was taken (317proteins.txt), which excludes the 50 proteins found in 50Extra.txt, to avoid training on test data. Will run a similar prediction to the AA seq model (out_50), and compare scores as well as performance time.
+
+In order specifically fulfil the course requirements for running the prediction on 50 new proteins, a new dataset containing 50 proteins called 50newproteins.txt will be parsed and compared to the original dataset.

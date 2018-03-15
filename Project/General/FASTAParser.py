@@ -11,7 +11,7 @@ def parser(filename):
     for i in range(0, len(all_lines)):
         if '>' in all_lines[i]:
             count += 1
-            filename1 = '../Datasets/50Extra/FASTA/' + str(all_lines[i].strip()) + '_FASTA.txt'
+            filename1 = '../Datasets/50New/FASTA/' + str(all_lines[i].strip()) + '_FASTA.txt'
             writefile = open(filename1, 'w')
             writefile.write(all_lines[i])
             writefile.write(all_lines[i+1])
@@ -19,4 +19,4 @@ def parser(filename):
             
             
 if __name__ == "__main__":
-    parser('../Datasets/50Extra.txt')
+    parser('../Datasets/50newproteins.txt')
