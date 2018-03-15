@@ -24,7 +24,7 @@ def opener(filename):
 
 
 def SVMscript1():
-    for windowsize in range(17,21,2):
+    for windowsize in range(11,15,2):
         Encoded_seq, Encoded_state = SVMInput.windowmaker_encoder(AAlist, Statelist, windowsize)
         #print(Encoded_state)
         AA_array = np.array(Encoded_seq)
@@ -35,7 +35,7 @@ def SVMscript1():
         #f_1_scorer = make_scorer(f1_score)
         Scoring = ['Accuracy']
         param = {'C' : C_range, 'gamma' : g_range}
-        clf = GridSearchCV(SVC(), param, n_jobs=1, cv=3, verbose=2, error_score=np.NaN, return_train_score=False)
+        clf = GridSearchCV(SVC(cache_size=10000), param, n_jobs=1, cv=3, verbose=2, error_score=np.NaN, return_train_score=False)
         clf.fit(X_train, Y_train)
         df = pd.DataFrame(clf.cv_results_)
         filename = '../Datasets/GridScores/' + str(windowsize) + '_improved' + '.csv'
