@@ -6,6 +6,7 @@ from numpy import array
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import cross_val_predict
+from sklearn.model_selection import cross_validate
 from sklearn.model_selection import KFold
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix
@@ -122,10 +123,10 @@ def SVMscript(E_seq, E_state, cvfold, filename):
     #print(AA_array)
     #print(state_array)
     x, y = AA_array, state_array
-    clf = SVC(gamma =0.001, kernel = 'linear', C=1.0)
+    clf = SVC(gamma =0.01, kernel = 'rbf', C=5.0)
     #print(clf)
     #print(x.shape, y.shape)
-    scores = cross_val_score(clf, x, y , cv=cvfold, scoring='f1')
+    scores = cross_val_score(clf, x, y , cv=cvfold, scoring='accuracy')
     #print(scores)
     average_score = np.average(scores)
     print(average_score)
@@ -143,7 +144,7 @@ def SVMscript(E_seq, E_state, cvfold, filename):
     
 
 if __name__ == "__main__":
-    data_file = '../Datasets/testfilesize50.txt'
+    data_file = '../Datasets/317proteins.txt'
     AAlist, Statelist = threelineparser(data_file)
-    encoded_seq, encoded_state = windowmaker_encoder(AAlist, Statelist, 9)
+    encoded_seq, encoded_state = windowmaker_encoder(AAlist, Statelist, 21)
     print(SVMscript(encoded_seq, encoded_state, 3, '../Datasets/output_50.pkl'))

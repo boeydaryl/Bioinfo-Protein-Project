@@ -37,16 +37,16 @@ def AA_Seq_Model(model, encoded_seq, encoded_state):
     x, y = encoded_seq, encoded_state
     y_predict = clf.predict(x)
     #print(y_predict)
-    #MatCorr = matthews_corrcoef(y, y_predict)
-    #print(MatCorr)
-    #accuracy = accuracy_score(y, y_predict)
-    #f1score = f1_score(y, y_predict, average = 'macro')
-    #print('Accuracy = ' + str(accuracy), 'F1_score = ' + str(f1score))
+    MatCorr = matthews_corrcoef(y, y_predict)
+    print('MatCorr = ' + str(MatCorr))
+    accuracy = accuracy_score(y, y_predict)
+    f1score = f1_score(y, y_predict, average = 'macro')
+    print('Accuracy = ' + str(accuracy), 'F1_score = ' + str(f1score))
     #conf_matrix = confusion_matrix(y, y_predict)
     #print(conf_matrix)
-    predicted = y_predict
-    filename = '../Datasets/Predicted/' + str(datetime.now()) + 'AA_Model.txt'
-    SVMPredictor.Pred_Output(seq_len, header_list, AAList, predicted, filename)
+    #predicted = y_predict
+    #filename = '../Datasets/Predicted/' + str(datetime.now()) + 'AA_Model.txt'
+    #SVMPredictor.Pred_Output(seq_len, header_list, AAList, predicted, filename)
 
 ########### PSSM Parser ##########
 def generator(filename):
@@ -60,7 +60,7 @@ def PSSMCaller(listofheaders):
         names = str(headers) + '_FASTA.txt.pssm'
         listoffiles.append(names)
     for name in listoffiles:
-        PSSM_array = (np.genfromtxt('../Datasets/50Extra/PSSM/' + name, skip_header = 3, skip_footer = 5, usecols = range(22,42), autostrip = True))/100
+        PSSM_array = (np.genfromtxt('../Datasets/50New/PSSM/' + name, skip_header = 3, skip_footer = 5, usecols = range(22,42), autostrip = True))/100
         listofarrays.append(PSSM_array)
     return listofarrays
     
@@ -74,16 +74,16 @@ def PSSM_Model(model, encoded_state):
     x = windowarray
     y = np.array(encoded_state)
     y_predict = clf.predict(x)
-    #MatCorr = matthews_corrcoef(y, y_predict)
-    #print(MatCorr)
-    #accuracy = accuracy_score(y, y_predict)
-    #f1score = f1_score(y, y_predict, average = 'macro')
-    #print('Accuracy = ' + str(accuracy), 'F1_score = ' + str(f1score))
+    MatCorr = matthews_corrcoef(y, y_predict)
+    print('MattCorr = ' + str(MatCorr))
+    accuracy = accuracy_score(y, y_predict)
+    f1score = f1_score(y, y_predict, average = 'macro')
+    print('Accuracy = ' + str(accuracy), 'F1_score = ' + str(f1score))
     #conf_matrix = confusion_matrix(y, y_predict)
     #print(conf_matrix)
-    predicted = y_predict
-    filename = '../Datasets/Predicted/' + str(datetime.now()) + 'PSSM_Model.txt'
-    SVMPredictor.Pred_Output(seq_len, header_list, AAList, predicted, filename)
+    #predicted = y_predict
+    #filename = '../Datasets/Predicted/' + str(datetime.now()) + 'PSSM_Model.txt'
+    #SVMPredictor.Pred_Output(seq_len, header_list, AAList, predicted, filename)
     
 ######## Other Classifiers######
 def Random_Forest(encoded_state):
@@ -108,13 +108,13 @@ def Dec_Tree(encoded_state):
     print(meanscores)
       
 if __name__ == '__main__':
-    header_list, AAList, Statelist, seq_len = Parser('../Datasets/50Extra.txt')
+    header_list, AAList, Statelist, seq_len = Parser('../Datasets/50newproteins.txt')
     encoded_seq, encoded_state = WindowMaker(AAList, Statelist, 21)
-    AA_Seq_Model('../Datasets/output_50.pkl', encoded_seq, encoded_state)
-    listofheaders, listoftopo = generator('../Datasets/50Extra.txt')
+    #AA_Seq_Model('../Datasets/output_50.pkl', encoded_seq, encoded_state)
+    listofheaders, listoftopo = generator('../Datasets/50newproteins.txt')
     listofarrays = PSSMCaller(listofheaders)
     windowarray = PSSMWindow(21, listofarrays)
-    #PSSM_Model('../Datasets/PSSMoutput.pkl', encoded_state)
+    PSSM_Model('../Datasets/PSSMoutput.pkl', encoded_state)
     #Random_Forest(encoded_state)
     #Dec_Tree(encoded_state)
     #filename = sys.argv[1]
