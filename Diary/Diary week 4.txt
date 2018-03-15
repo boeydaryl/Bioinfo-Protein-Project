@@ -61,3 +61,7 @@ Confusion matrix for fully trained PSSM model:
 To transfer all the relevant metrics to a spreadsheet for easy comparison and referral.
 
 Implemented an output for FinalPredictor.py, to write the predicted states to a separate file, along with original ID and sequence information. 
+
+2018 15 Mar
+
+To compare the performance of a more comprehensive model vs the 50 model, a bigger subset of the original dataset was taken (317proteins.txt), which excludes the 50 proteins found in 50Extra.txt, to avoid training on test data. Will run a similar prediction to the AA seq model (out_50), and compare scores as well as performance time.
