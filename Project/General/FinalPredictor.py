@@ -110,11 +110,11 @@ def Dec_Tree(encoded_state):
 if __name__ == '__main__':
     header_list, AAList, Statelist, seq_len = Parser('../Datasets/50newproteins.txt')
     encoded_seq, encoded_state = WindowMaker(AAList, Statelist, 21)
-    #AA_Seq_Model('../Datasets/output_50.pkl', encoded_seq, encoded_state)
+    AA_Seq_Model('../Datasets/output_50.pkl', encoded_seq, encoded_state)
     listofheaders, listoftopo = generator('../Datasets/50newproteins.txt')
     listofarrays = PSSMCaller(listofheaders)
     windowarray = PSSMWindow(21, listofarrays)
-    PSSM_Model('../Datasets/PSSMoutput.pkl', encoded_state)
+    #PSSM_Model('../Datasets/PSSMoutput.pkl', encoded_state)
     #Random_Forest(encoded_state)
     #Dec_Tree(encoded_state)
     #filename = sys.argv[1]
