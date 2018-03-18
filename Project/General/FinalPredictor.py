@@ -42,11 +42,11 @@ def AA_Seq_Model(model, encoded_seq, encoded_state):
     #accuracy = accuracy_score(y, y_predict)
     #f1score = f1_score(y, y_predict, average = 'macro')
     #print('Accuracy = ' + str(accuracy), 'F1_score = ' + str(f1score))
-    conf_matrix = confusion_matrix(y, y_predict)
-    print(conf_matrix)
-    #predicted = y_predict
-    #filename = '../Datasets/Predicted/' + str(datetime.now()) + 'AA_Model.txt'
-    #SVMPredictor.Pred_Output(seq_len, header_list, AAList, predicted, filename)
+    #conf_matrix = confusion_matrix(y, y_predict)
+    #print(conf_matrix)
+    predicted = y_predict
+    filename = '../Datasets/Predicted/' + str(datetime.now()) + 'AA_Model.txt'
+    SVMPredictor.Pred_Output(seq_len, header_list, AAList, predicted, filename)
 
 ########### PSSM Parser ##########
 def generator(filename):
@@ -79,11 +79,11 @@ def PSSM_Model(model, encoded_state):
     #accuracy = accuracy_score(y, y_predict)
     #f1score = f1_score(y, y_predict, average = 'macro')
     #print('Accuracy = ' + str(accuracy), 'F1_score = ' + str(f1score))
-    conf_matrix = confusion_matrix(y, y_predict)
-    print(conf_matrix)
-    #predicted = y_predict
-    #filename = '../Datasets/Predicted/' + str(datetime.now()) + 'PSSM_Model.txt'
-    #SVMPredictor.Pred_Output(seq_len, header_list, AAList, predicted, filename)
+    #conf_matrix = confusion_matrix(y, y_predict)
+    #print(conf_matrix)
+    predicted = y_predict
+    filename = '../Datasets/Predicted/' + str(datetime.now()) + 'PSSM_Model.txt'
+    SVMPredictor.Pred_Output(seq_len, header_list, AAList, predicted, filename)
     
 ######## Other Classifiers######
 def Random_Forest(encoded_state):
@@ -110,7 +110,7 @@ def Dec_Tree(encoded_state):
 if __name__ == '__main__':
     header_list, AAList, Statelist, seq_len = Parser('../Datasets/50newproteins.txt')
     encoded_seq, encoded_state = WindowMaker(AAList, Statelist, 21)
-    #AA_Seq_Model('../Datasets/optimised_317.pkl', encoded_seq, encoded_state)
+    AA_Seq_Model('../Datasets/output_50.pkl', encoded_seq, encoded_state)
     listofheaders, listoftopo = generator('../Datasets/50newproteins.txt')
     listofarrays = PSSMCaller(listofheaders)
     windowarray = PSSMWindow(21, listofarrays)
