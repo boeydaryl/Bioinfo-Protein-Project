@@ -1,0 +1,5 @@
+2018 19 Mar
+
+Last day for the project today, with both final code and report to be submitted. Verified that FinalPredictor.py has been configured to use appropriate trained models and outputs to the right folder.
+
+Also verified that all requirements (both mandatory and optional) have been fulfilled in the code or final report.
